@@ -4,7 +4,7 @@ import { SortButton } from "components/SortButton/SortButton";
 import { TaskForm } from "components/TaskForm/TaskForm";
 import { TaskList } from "components/TaskList/TaskList";
 import { useSelector } from "react-redux";
-import { RootState } from './../types/index';
+import { RootState } from '../app/types/index';
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
