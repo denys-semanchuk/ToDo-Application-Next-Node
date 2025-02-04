@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { clearCompleted } from 'slices/taskSlice'
+import { clearCompleted } from 'store/slices/taskSlice'
 import { Task } from 'types'
 
 type Props = {

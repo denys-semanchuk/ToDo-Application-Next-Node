@@ -6,7 +6,7 @@ import { Notification } from '../Notification/Notification'
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { SortableTaskItem } from './SortableTaskItem';
-import { reorderTasks } from 'slices/taskSlice';
+import { reorderTasks } from 'store/slices/taskSlice';
 import { ClearCompletedBtn } from 'components/ClearCompletedBtn/ClearCompletedBtn';
 import { ProgressBar } from 'components/ProgressBar/ProgressBar';
 

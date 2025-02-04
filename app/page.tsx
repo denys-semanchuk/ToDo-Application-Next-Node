@@ -5,7 +5,6 @@ import { CheckCircleIcon, StarIcon, FunnelIcon } from '@heroicons/react/24/outli
 export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Navbar */}
       <nav className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
@@ -22,7 +21,6 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section */}
       <div className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
         <div className="max-w-7xl mx-auto px-4 py-20 sm:px-6 lg:px-8">
           <div className="text-center">
@@ -42,7 +40,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Features Section */}
       <div className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
@@ -51,7 +48,6 @@ export default function Home() {
             </h2>
           </div>
           <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {/* Feature 1 */}
             <div className="p-6 bg-gray-50 rounded-lg">
               <div className="flex items-center">
                 <CheckCircleIcon className="h-8 w-8 text-indigo-600" />
@@ -59,7 +55,6 @@ export default function Home() {
               </div>
               <p className="mt-2 text-gray-600">Create, organize, and track your tasks with ease.</p>
             </div>
-            {/* Feature 2 */}
             <div className="p-6 bg-gray-50 rounded-lg">
               <div className="flex items-center">
                 <StarIcon className="h-8 w-8 text-indigo-600" />
@@ -67,7 +62,6 @@ export default function Home() {
               </div>
               <p className="mt-2 text-gray-600">Set priorities and focus on what matters most.</p>
             </div>
-            {/* Feature 3 */}
             <div className="p-6 bg-gray-50 rounded-lg">
               <div className="flex items-center">
                 <FunnelIcon className="h-8 w-8 text-indigo-600" />
@@ -79,7 +73,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Footer */}
       <footer className="bg-gray-800 text-white">
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">

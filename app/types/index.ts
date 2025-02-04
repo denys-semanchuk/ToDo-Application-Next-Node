@@ -30,13 +30,22 @@ export interface RootState {
     tasks: Task[];
     filter: FilterType;
     sort: SortType;
-  }
+  },
+  auth: AuthState
 }
 
 export interface User {
   id: string;
+  username: string;
+  password: string;
   email: string;
-  name: string;
+  createdAt: Date;
+}
+
+export interface UserDTO {
+  username: string;
+  password: string;
+  email: string;
 }
 
 export interface AuthState {

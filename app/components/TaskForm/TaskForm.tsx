@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addTask } from '../../slices/taskSlice';
+import { addTask } from '../../store/slices/taskSlice';
 import { Notification } from '../Notification/Notification';
 
 const MAX_LENGTH = 200;

@@ -2,7 +2,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FilterType, RootState } from '../../types';
-import { setFilter } from '../../slices/taskSlice';
+import { setFilter } from '../../store/slices/taskSlice';
 
 export const FilterButtons = () => {
   const dispatch = useDispatch();

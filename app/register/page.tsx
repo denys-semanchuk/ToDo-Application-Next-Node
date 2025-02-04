@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useDispatch } from 'react-redux'
-import { loginSuccess } from 'slices/authSlice'
+import { loginSuccess } from 'store/slices/authSlice'
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({

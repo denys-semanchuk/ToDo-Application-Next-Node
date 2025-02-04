@@ -3,8 +3,33 @@ import { FilterButtons } from "components/FilterButtons/FilterButtons";
 import { SortButton } from "components/SortButton/SortButton";
 import { TaskForm } from "components/TaskForm/TaskForm";
 import { TaskList } from "components/TaskList/TaskList";
+import { useSelector } from "react-redux";
+import { RootState } from './../types/index';
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Home() {
+  const { user, loading, isAuthenticated } = useSelector((state: RootState) => state.auth)
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isAuthenticated && !user && !loading) {
+      router.push('/register');
+    }
+  }, [isAuthenticated, user, loading, router]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated || !user) {
+    return null;
+  }
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="w-full max-w-2xl mx-auto px-2 py-8">

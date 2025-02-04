@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useDispatch } from 'react-redux'
-import { loginStart, loginSuccess, loginFailure } from 'slices/authSlice'
+import { loginStart, loginSuccess, loginFailure } from 'store/slices/authSlice'
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({

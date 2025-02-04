@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Priority, SortType, Task, FilterType } from "../types";
+import { Priority, SortType, Task, FilterType } from "../../types";
 
 const STORAGE_KEY = "tasks";
 

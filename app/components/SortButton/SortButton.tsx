@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setSortingByTime } from '../../slices/taskSlice';
+import { setSortingByTime } from '../../store/slices/taskSlice';
 import { RootState, SortType } from '../../types';
 
 export const SortButton = () => {
