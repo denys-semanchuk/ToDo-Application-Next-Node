@@ -2,7 +2,7 @@ import axios from 'axios';
 import { LoginCredentials, RegisterCredentials} from '../types';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api'
+  baseURL: 'http://localhost:5000/api/auth'
 })
 
 export const authApi = {
@@ -12,12 +12,12 @@ export const authApi = {
   },
 
   async register(credentials: RegisterCredentials) {
-    const response = await axios.post(`/register`, credentials);
+    const response = await api.post(`/register`, credentials);
     return response.data;
   },
 
   async logout() {
-    const response = await axios.post(`/logout`);
+    const response = await api.post(`/logout`);
     return response.data;
   }
 };

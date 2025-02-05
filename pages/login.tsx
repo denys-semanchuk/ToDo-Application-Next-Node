@@ -1,5 +1,5 @@
 'use client'
-import {useFormik} from 'formik'
+import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -21,7 +21,7 @@ const validationSchema = Yup.object({
 export default function LoginPage() {
   const router = useRouter()
   const dispatch = useDispatch<AppDispatch>()
-  const { loading } = useSelector((state: RootState) => state.auth);
+  const { loading, error } = useSelector((state: RootState) => state.auth);
 
   const formik = useFormik({
     initialValues: {
@@ -86,6 +86,12 @@ export default function LoginPage() {
               ) : null}
             </div>
           </div>
+
+          {(error || formik.errors.password) && (
+            <div className="text-red-500 text-sm text-center mt-2">
+              {error || formik.errors.password}
+            </div>
+          )}
 
           <div>
             <button
