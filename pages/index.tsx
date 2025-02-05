@@ -1,30 +1,155 @@
 'use client'
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import { useSelector } from 'react-redux'
 import { RootState } from 'types'
+import { Doughnut } from 'react-chartjs-2'
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
+import { CalendarIcon, ChartBarIcon, CheckCircleIcon, ClockIcon, FireIcon } from '@heroicons/react/24/outline'
+import { Header } from 'components/Header/Header'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
-export default function RedirectPage() {
+ChartJS.register(ArcElement, Tooltip, Legend)
+
+export default function Dashboard() {
+  const { user, isAuthenticated, loading } = useSelector((state: RootState) => state.auth)
+  const { tasks } = useSelector((state: RootState) => state.tasks)
   const router = useRouter()
-  const { isAuthenticated, loading } = useSelector((state: RootState) => state.auth)
+  const completedTasks = tasks.filter(task => task.completed).length
+  const pendingTasks = tasks.length - completedTasks
+  const chartData = {
+    labels: ['Completed', 'Pending'],
+    datasets: [{
+      data: [completedTasks, pendingTasks],
+      backgroundColor: ['#10B981', '#FBBF24'],
+      borderWidth: 0
+    }]
+  }
 
-  useEffect(() => {
-    if (!loading) {
-      if (isAuthenticated) {
-        router.push('/tasks')
-      } else {
-        router.push('/dashboard')
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom' as const
       }
     }
-  }, [isAuthenticated, loading])
+  }
+
+  useEffect(() => {
+    if (!isAuthenticated && !loading) {
+      router.push('/dashboard')
+    }
+  }, [isAuthenticated, loading, router])
 
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900" />
       </div>
     )
   }
 
-  return null
+  if (!isAuthenticated || !user) {
+    return null
+  }
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+
+      <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <h1 className="text-2xl font-bold text-gray-900">Welcome back, {user?.username}! 👋</h1>
+          <p className="text-gray-600">Here&apos;s your productivity overview</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="flex items-center">
+              <div className="p-2 bg-indigo-100 rounded-lg">
+                <ChartBarIcon className="h-6 w-6 text-indigo-600" />
+              </div>
+              <div className="ml-4">
+                <p className="text-sm text-gray-500">Total Tasks</p>
+                <p className="text-xl font-semibold">{tasks.length}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="flex items-center">
+              <div className="p-2 bg-green-100 rounded-lg">
+                <CheckCircleIcon className="h-6 w-6 text-green-600" />
+              </div>
+              <div className="ml-4">
+                <p className="text-sm text-gray-500">Completed</p>
+                <p className="text-xl font-semibold">{completedTasks}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="flex items-center">
+              <div className="p-2 bg-yellow-100 rounded-lg">
+                <ClockIcon className="h-6 w-6 text-yellow-600" />
+              </div>
+              <div className="ml-4">
+                <p className="text-sm text-gray-500">Pending</p>
+                <p className="text-xl font-semibold">{pendingTasks}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-sm p-6">
+            <div className="flex items-center">
+              <div className="p-2 bg-purple-100 rounded-lg">
+                <FireIcon className="h-6 w-6 text-purple-600" />
+              </div>
+              <div className="ml-4">
+                <p className="text-sm text-gray-500">Productivity</p>
+                <p className="text-xl font-semibold">{Math.round((completedTasks / tasks.length) * 100)}%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+          <div className="bg-white rounded-xl shadow-sm p-6">
+            <h2 className="text-lg font-semibold mb-4">Task Progress</h2>
+            <div className="h-64">
+              <Doughnut
+                data={chartData}
+                options={chartOptions}
+              />
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-sm p-6">
+            <h2 className="text-lg font-semibold mb-4">Recent Activity</h2>
+            <div className="space-y-4">
+              {tasks.slice(-5).map(task => (
+                <div key={task.id} className="flex items-center p-3 hover:bg-gray-50 rounded-lg">
+                  <div className={`h-2 w-2 rounded-full ${task.completed ? 'bg-green-500' : 'bg-yellow-500'}`} />
+                  <p className="ml-3 text-sm text-gray-600 flex-1">{task.text}</p>
+                  <span className="text-xs text-gray-400">
+                    {new Date(task.timestamp).toLocaleDateString()}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
+          <h2 className="text-lg font-semibold mb-4">Quick Actions</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <button className="p-4 text-left hover:bg-gray-50 rounded-lg">
+              <CalendarIcon className="h-6 w-6 text-indigo-600 mb-2" />
+              <h3 className="font-medium">Create Task</h3>
+              <p className="text-sm text-gray-500">Add a new task to your list</p>
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+  )
 }
