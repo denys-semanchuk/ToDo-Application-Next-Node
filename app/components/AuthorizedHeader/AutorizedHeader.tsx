@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { AppDispatch } from '../../../pages/login'
 import { RootState } from 'types'
 import { logoutThunk } from 'store/thunks/authThunks'
+import { UserCircleIcon } from '@heroicons/react/24/outline'
 
 export const AuthHeader = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -28,12 +29,11 @@ export const AuthHeader = () => {
           
           <div className="flex items-center">
             <Menu as="div" className="ml-3 relative">
-              <Menu.Button className="bg-white rounded-full flex items-center justify-center">
-                <div className="h-8 w-8 rounded-full bg-indigo-600 flex items-center justify-center">
-                  <span className="text-white text-sm font-medium">
-                    {user?.username?.charAt(0).toUpperCase()}
-                  </span>
-                </div>
+            <Menu.Button className="flex items-center p-2 rounded-full hover:bg-gray-100">
+                <UserCircleIcon className="h-8 w-8 text-gray-600" />
+                <span className="ml-2 text-sm font-medium text-gray-700">
+                  {user?.username}
+                </span>
               </Menu.Button>
 
               <Transition
