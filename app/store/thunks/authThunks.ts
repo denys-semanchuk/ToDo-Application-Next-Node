@@ -68,7 +68,7 @@ export const checkAuthToken = createAsyncThunk(
         return rejectWithValue('No token found')
       }
 
-      const response = await api.get('/auth/verify')
+      const response = await api.get('/verify')
       return response.data
     } catch (error) {
       localStorage.removeItem('token')
