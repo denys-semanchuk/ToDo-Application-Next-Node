@@ -6,4 +6,9 @@ export const store = configureStore({
     tasks: taskReducer,
     auth: authReducer,
   },
+  devTools: process.env.NODE_ENV !== "production",
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
