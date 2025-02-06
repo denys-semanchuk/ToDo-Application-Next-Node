@@ -24,3 +24,16 @@ export type Task = {
   important: boolean;
   priority: Priority;
 }
+
+export interface CreateTaskDto {
+  title: string;
+  description?: string;
+  important?: boolean;
+}
+
+export interface UpdateTaskDto {
+  title?: string;
+  description?: string;
+  important?: boolean;
+  completed?: boolean;
+}

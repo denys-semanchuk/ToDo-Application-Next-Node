@@ -1,9 +1,5 @@
-import axios from 'axios';
 import { LoginCredentials, RegisterCredentials} from '../types';
-
-const api = axios.create({
-  baseURL: 'http://localhost:5000/api/auth'
-})
+import { api } from 'services';
 
 export const authApi = {
   async login(credentials: LoginCredentials) {
