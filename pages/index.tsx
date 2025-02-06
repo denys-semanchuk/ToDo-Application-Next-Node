@@ -106,7 +106,7 @@ export default function Dashboard() {
               </div>
               <div className="ml-4">
                 <p className="text-sm text-gray-500">Productivity</p>
-                <p className="text-xl font-semibold">{Math.round((completedTasks / tasks.length) * 100)}%</p>
+                <p className="text-xl font-semibold">{Math.round((completedTasks / tasks.length) * 100) || 0}%</p>
               </div>
             </div>
           </div>

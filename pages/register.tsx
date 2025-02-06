@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { AppDispatch } from './login';
 import { RootState } from 'types';
 import { GuestGuard } from 'components/GuestGuard/GuestGuard';
-import { GuestHeader } from 'components/GuestHeader/GuestHeader';
+import { Header } from 'components/Header/Header';
 
 const validationSchema = Yup.object({
   username: Yup.string()
@@ -45,8 +45,7 @@ export default function RegisterPage() {
 
   return (
     <GuestGuard>
-
-      <GuestHeader />
+      <Header/>
       <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
@@ -66,7 +65,7 @@ export default function RegisterPage() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.username}
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  className="appearance-none mb-4 rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Username"
                 />
                 {formik.touched.username && formik.errors.username ? (
@@ -83,7 +82,7 @@ export default function RegisterPage() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.email}
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  className="appearance-none mb-4 rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Email address"
                 />
                 {formik.touched.email && formik.errors.email ? (
@@ -100,7 +99,7 @@ export default function RegisterPage() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.password}
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  className="appearance-none mb-4 rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Password"
                 />
                 {formik.touched.password && formik.errors.password ? (

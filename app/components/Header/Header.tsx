@@ -21,15 +21,35 @@ export const Header = () => {
   return (
     <header className="bg-white shadow">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+        <div className="flex justify-between h-16 items-center">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
               <h1 className="text-3xl font-bold text-indigo-600"><Link href='/'>TaskMaster</Link></h1>
             </div>
           </div>
-          
+
+          {isAuthenticated && (
+            <nav className="flex ml-auto">
+              <Link
+                href="/"
+                className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Home
+              </Link>
+              <Link
+                href="/tasks"
+                className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Tasks
+              </Link>
+              <Link href='/about'
+                className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+              >About</Link>
+            </nav>
+          )}
+
           <div className="flex items-center">
-          {isAuthenticated ? (
+            {isAuthenticated ? (
               <Menu as="div" className="ml-3 relative">
                 <Menu.Button className="flex items-center p-2 rounded-full hover:bg-gray-100">
                   <UserCircleIcon className="h-8 w-8 text-gray-600" />
@@ -51,9 +71,8 @@ export const Header = () => {
                       {({ active }) => (
                         <button
                           onClick={handleLogout}
-                          className={`${
-                            active ? 'bg-gray-100' : ''
-                          } block px-4 py-2 text-sm text-gray-700 w-full text-left`}
+                          className={`${active ? 'bg-gray-100' : ''
+                            } block px-4 py-2 text-sm text-gray-700 w-full text-left`}
                         >
                           Sign out
                         </button>
@@ -64,8 +83,8 @@ export const Header = () => {
               </Menu>
             ) : (
               <div className="flex items-center space-x-4">
-                <Link 
-                  href="/login" 
+                <Link
+                  href="/login"
                   className="text-gray-600 hover:text-gray-900"
                 >
                   Login

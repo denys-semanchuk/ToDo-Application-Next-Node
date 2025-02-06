@@ -1,12 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion'
-import { GuestHeader } from 'components/GuestHeader/GuestHeader';
+import { Header } from 'components/Header/Header';
 
 export default function AboutPage() {
 
   return (
     <>
-      <GuestHeader />
+      <Header />
       <div className="min-h-screen bg-gray-50">
         <main className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
           <motion.div
