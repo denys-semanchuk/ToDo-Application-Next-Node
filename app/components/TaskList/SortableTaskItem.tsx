@@ -3,11 +3,11 @@ import React, { ChangeEvent, useRef } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Task } from '../../types';
-import { setPriority, toggleImportant, toggleTask, updateTaskText } from '../../store/slices/taskSlice';
+import { toggleImportant, deleteTask } from '../../store/thunks/taskThunks'
+import { setPriority, toggleTask, updateTaskText } from '../../store/slices/taskSlice';
 import { useDispatch } from 'react-redux';
 import { AutoResizeTextArea } from './../AutoResizeTextarea/AutoResizeTextArea';
 import { PrioritySelect } from './../PrioritySelect/PrioritySelect';
-import { deleteTask } from 'store/thunks/taskThunks';
 import { AppDispatch } from '../../../pages/login';
 
 interface Props {
@@ -59,7 +59,7 @@ export const SortableTaskItem: React.FC<Props> = ({ task }) => {
               onClick={() => dispatch(toggleImportant(task._id))}
               title='add to important'
               className={`mr-2 text-xl ${task.important ? 'text-yellow-400' : 'text-gray-400'}`}
-              >
+            >
 
 
               ★

@@ -5,15 +5,17 @@ import { Doughnut } from 'react-chartjs-2'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { CalendarIcon, ChartBarIcon, CheckCircleIcon, ClockIcon, FireIcon } from '@heroicons/react/24/outline'
 import { Header } from 'components/Header/Header'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
 export default function Dashboard() {
   const { user, isAuthenticated, loading } = useSelector((state: RootState) => state.auth)
-  const { tasks } = useSelector((state: RootState) => state.tasks)
+  const { tasks, loading: tasksLoading } = useSelector((state: RootState) => state.tasks)
   const router = useRouter()
+  const [isFirstRender, setIsFirstRender] = useState(true);
+
   const completedTasks = tasks.filter(task => task.completed).length
   const pendingTasks = tasks.length - completedTasks
   const chartData = {
@@ -36,10 +38,13 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
-    if (!isAuthenticated && !loading) {
+    if(isFirstRender) {
+      setIsFirstRender(false)
+    }
+    if (!isAuthenticated && !loading && !isFirstRender) {
       router.push('/dashboard')
     }
-  }, [isAuthenticated, loading, router])
+  }, [isAuthenticated])
 
   if (loading) {
     return (
@@ -126,7 +131,7 @@ export default function Dashboard() {
           <div className="bg-white rounded-xl shadow-sm p-6">
             <h2 className="text-lg font-semibold mb-4">Recent Activity</h2>
             <div className="space-y-4">
-              {tasks.slice(-5).map(task => (
+              {tasksLoading ? <p>Loading...</p>: tasks.slice(-5).map(task => (
                 <div key={task._id} className="flex items-center p-3 hover:bg-gray-50 rounded-lg">
                   <div className={`h-2 w-2 rounded-full ${task.completed ? 'bg-green-500' : 'bg-yellow-500'}`} />
                   <p className="ml-3 text-sm text-gray-600 flex-1">{task.text}</p>

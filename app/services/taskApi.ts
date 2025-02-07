@@ -12,7 +12,7 @@ export const taskApi = {
     return response.data;
   },
 
-  async updateTask(id: string, task: UpdateTaskDto) {
+  async updateTask(id: number, task: UpdateTaskDto) {
     const response = await api.put(`/tasks/${id}`, task);
     return response.data;
   },
@@ -21,12 +21,12 @@ export const taskApi = {
     await api.delete(`/tasks/${id}`);
   },
 
-  async toggleImportant(id: string) {
+  async toggleImportant(id: number) {
     const response = await api.patch(`/tasks/${id}/important`);
     return response.data;
   },
 
-  async toggleCompleted(id: string) {
+  async toggleCompleted(id: number) {
     const response = await api.patch(`/tasks/${id}/completed`);
     return response.data;
   },

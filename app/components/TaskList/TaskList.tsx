@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import { FilterType, RootState, SortType } from '../../types'
+import { FilterType, RootState } from '../../types'
 import { useSelector, useDispatch } from 'react-redux'
 import { Notification } from '../Notification/Notification'
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
@@ -13,8 +13,7 @@ import { AppDispatch } from '../../../pages/login'
 
 export const TaskList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const { tasks, filter, loading } = useSelector((state: RootState) => state.tasks);
-
+  const { tasks, filter, loading, error } = useSelector((state: RootState) => state.tasks);
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {

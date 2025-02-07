@@ -3,10 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { checkAuthToken } from 'store/thunks/authThunks';
 import { RootState } from 'types';
 import { AppDispatch } from '../../pages/login';
+import { useLoadTasks } from 'hooks/useLoadTasks';
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const dispatch = useDispatch<AppDispatch>()
   const { loading } = useSelector((state: RootState) => state.auth)
+  
+  useLoadTasks()
 
   useEffect(() => {
     dispatch(checkAuthToken())

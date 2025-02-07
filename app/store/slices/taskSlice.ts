@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Priority, SortType, Task, FilterType } from "../../types";
-import { createTask, deleteTask, fetchTasks, updateTask } from "store/thunks/taskThunks";
+import { createTask, deleteTask, fetchTasks, updateTask, toggleImportant } from "store/thunks/taskThunks";
 
 const STORAGE_KEY = "tasks";
 
@@ -146,9 +146,33 @@ const taskSlice = createSlice({
     });
 
     builder.addCase(deleteTask.fulfilled, (state, action) => {
-      console.log('впавпв')
       state.tasks = state.tasks.filter((task) => task._id !== action.payload);
     });
+
+    builder.addCase(toggleImportant.pending, (state, action) => {
+      const task = state.tasks.find((t) => t._id === action.meta.arg);
+      if (task) {
+        task.important = !task.important;
+      }
+    });
+  
+    builder.addCase(toggleImportant.fulfilled, (state, action) => {
+      const task = state.tasks.find((t) => t._id === action.payload);
+      if (task) {
+        task.important = !task.important;
+      }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.tasks));
+    });
+  
+    builder.addCase(toggleImportant.rejected, (state, action) => {
+      const task = state.tasks.find((t) => t._id === action.meta.arg);
+      if (task) {
+        task.important = !task.important;
+      }
+      state.error = action.payload as string;
+    });
+  
+  
   },
 });
 export const {
@@ -159,7 +183,6 @@ export const {
   updateTask: updateTaskText,
   setSortingByTime,
   reorderTasks,
-  toggleImportant,
   clearCompleted,
   setPriority,
 } = taskSlice.actions;

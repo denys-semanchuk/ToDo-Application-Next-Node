@@ -62,3 +62,18 @@ export const deleteTask = createAsyncThunk(
     }
   }
 )
+
+export const toggleImportant = createAsyncThunk(
+  'tasks/toggleImportant',
+  async (id: number, { rejectWithValue }) => {
+    try {
+      await taskApi.toggleImportant(id)
+      return id
+    } catch (error) {
+      if (isApiError(error)) {
+        return rejectWithValue(error.response?.data?.message || 'Failed to load task')
+      }
+      return rejectWithValue('An unexpected error occurred')
+    }
+  }
+)
