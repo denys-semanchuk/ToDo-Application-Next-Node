@@ -4,10 +4,6 @@ import { createTask, deleteTask, fetchTasks, updateTask } from "store/thunks/tas
 
 const STORAGE_KEY = "tasks";
 
-// const loadTasks = (): Task[] => {
-//   const saved = localStorage.getItem(STORAGE_KEY);
-//   return saved ? JSON.parse(saved) : [];
-// };
 const initialState: {
   tasks: Task[];
   filter: FilterType;
@@ -32,7 +28,7 @@ const taskSlice = createSlice({
     },
     addTask: (state, action: PayloadAction<string>) => {
       state.tasks.push({
-        id: state.tasks.length,
+        _id: state.tasks.length,
         text: action.payload,
         completed: false,
         important: false,
@@ -42,21 +38,21 @@ const taskSlice = createSlice({
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state.tasks));
     },
     toggleImportant: (state, action: PayloadAction<number>) => {
-      const task = state.tasks.find((task) => task.id === action.payload);
+      const task = state.tasks.find((task) => task._id === action.payload);
       if (task) {
         task.important = !task.important;
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state.tasks));
       }
     },
     toggleTask: (state, action: PayloadAction<number>) => {
-      const task = state.tasks.find((task) => task.id === action.payload);
+      const task = state.tasks.find((task) => task._id === action.payload);
       if (task) {
         task.completed = !task.completed;
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state.tasks));
       }
     },
     removeTask: (state, action: PayloadAction<number>) => {
-      state.tasks = state.tasks.filter((task) => task.id !== action.payload);
+      state.tasks = state.tasks.filter((task) => task._id !== action.payload);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state.tasks));
     },
     setFilter: (state, action: PayloadAction<FilterType>) => {
@@ -78,9 +74,9 @@ const taskSlice = createSlice({
 
     updateTask: (
       state,
-      action: PayloadAction<{ id: number; text: string }>
+      action: PayloadAction<{ _id: number; text: string }>
     ) => {
-      const task = state.tasks.find((task) => task.id === action.payload.id);
+      const task = state.tasks.find((task) => task._id === action.payload._id);
       if (!task) return;
       task.text = action.payload.text;
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state.tasks));
@@ -93,9 +89,9 @@ const taskSlice = createSlice({
 
     setPriority: (
       state,
-      action: PayloadAction<{ id: number; priority: Priority }>
+      action: PayloadAction<{ _id: number; priority: Priority }>
     ) => {
-      const task = state.tasks.find((task) => task.id === action.payload.id);
+      const task = state.tasks.find((task) => task._id === action.payload._id);
       if (task) {
         task.priority = action.payload.priority;
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state.tasks));
@@ -103,7 +99,6 @@ const taskSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // Fetch Tasks
     builder.addCase(fetchTasks.pending, (state) => {
       state.loading = true;
       state.error = null;
@@ -112,18 +107,38 @@ const taskSlice = createSlice({
       state.tasks = action.payload;
       state.loading = false;
     });
+    
+    builder.addCase(createTask.pending, (state, action) => {
+      const optimisticTask: Task = {
+        _id: action.meta.arg._id,
+        text: action.meta.arg.text || '',
+        completed: false,
+        important: action.meta.arg.important || false,
+        timestamp: Date.now(),
+        priority: Priority.LOW
+      }
+      state.tasks.unshift(optimisticTask)
+    })
+    
+    builder.addCase(createTask.fulfilled, (state, action) => {
+      state.tasks = state.tasks.filter(task => task._id !== action.meta.arg._id)
+      state.tasks.unshift(action.payload)
+    })
+
+    builder.addCase(createTask.rejected, (state,action) => {
+      state.loading = false;
+      state.tasks = state.tasks.filter(task => task._id !== action.meta.arg._id)
+      state.error = action.payload as string
+    })
     builder.addCase(fetchTasks.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.payload as string;
-    });
-
-    builder.addCase(createTask.fulfilled, (state, action) => {
-      state.tasks.push(action.payload);
+      state.tasks = state.tasks.splice(0, 1)
+      state.error = action.payload as string
     });
 
     builder.addCase(updateTask.fulfilled, (state, action) => {
       const index = state.tasks.findIndex(
-        (task) => task.id === action.payload._id
+        (task) => task._id === action.payload._id
       );
       if (index !== -1) {
         state.tasks[index] = action.payload;
@@ -131,7 +146,7 @@ const taskSlice = createSlice({
     });
 
     builder.addCase(deleteTask.fulfilled, (state, action) => {
-      state.tasks = state.tasks.filter((task) => task.id !== +action.payload);
+      state.tasks = state.tasks.filter((task) => task._id !== +action.payload);
     });
   },
 });

@@ -17,7 +17,7 @@ export enum Priority {
 }
 
 export type Task = {
-  id: number;
+  _id: number;
   text: string;
   completed: boolean;
   timestamp: number;
@@ -26,8 +26,9 @@ export type Task = {
 }
 
 export interface CreateTaskDto {
-  text: string;
-  important: boolean;
+  id?:number;
+  text?: string;
+  important?: boolean;
 }
 
 export interface UpdateTaskDto {

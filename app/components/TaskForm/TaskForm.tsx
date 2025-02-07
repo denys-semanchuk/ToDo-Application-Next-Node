@@ -21,7 +21,7 @@ export const TaskForm = () => {
     const tempText = taskText;
     try {
       setTaskText("")
-      await dispatch(createTask({ text: taskText, important: false })).unwrap()
+      await dispatch(createTask({ text: taskText, important: false, _id: Date.now() })).unwrap()
     } catch (err) {
       setTaskText(tempText)
       setError(err as string)

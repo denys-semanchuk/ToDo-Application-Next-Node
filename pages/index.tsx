@@ -127,7 +127,7 @@ export default function Dashboard() {
             <h2 className="text-lg font-semibold mb-4">Recent Activity</h2>
             <div className="space-y-4">
               {tasks.slice(-5).map(task => (
-                <div key={task.id} className="flex items-center p-3 hover:bg-gray-50 rounded-lg">
+                <div key={task._id} className="flex items-center p-3 hover:bg-gray-50 rounded-lg">
                   <div className={`h-2 w-2 rounded-full ${task.completed ? 'bg-green-500' : 'bg-yellow-500'}`} />
                   <p className="ml-3 text-sm text-gray-600 flex-1">{task.text}</p>
                   <span className="text-xs text-gray-400">

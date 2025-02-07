@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { taskApi } from '../../services/taskApi'
-import { CreateTaskDto, UpdateTaskDto } from '../../types/tasksTypes'
+import { CreateTaskDto, Task, UpdateTaskDto } from '../../types/tasksTypes'
 import { isApiError } from 'utils/isApiError'
 
 export const fetchTasks = createAsyncThunk(
@@ -18,7 +18,7 @@ export const fetchTasks = createAsyncThunk(
   }
 )
 
-export const createTask = createAsyncThunk(
+export const createTask = createAsyncThunk<Task, { text: string; important?: boolean, _id: number }>(
   'tasks/createTask',
   async (task: CreateTaskDto, { rejectWithValue }) => {
     try {

@@ -19,7 +19,7 @@ export const SortableTaskItem: React.FC<Props> = ({ task }) => {
     setNodeRef,
     transform,
     transition,
-  } = useSortable({ id: task.id });
+  } = useSortable({ id: task._id });
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
@@ -28,26 +28,24 @@ export const SortableTaskItem: React.FC<Props> = ({ task }) => {
   const dispatch = useDispatch()
   const elementRef = useRef<HTMLLIElement>(null)
   const handleChange = () => {
-    dispatch(toggleTask(task.id))
+    dispatch(toggleTask(task._id))
   }
 
   const handleTaskTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    dispatch(updateTaskText({ id: task.id, text: e.target.value }))
+    dispatch(updateTaskText({ _id: task._id, text: e.target.value }))
   }
 
   const handleDelete = () => {
-    console.log("Denys is the king");
     elementRef.current?.classList.add('task-exit')
 
-    new Promise((resolve) => { setTimeout(resolve, 300) }).then(() => dispatch(removeTask(task.id)))
+    new Promise((resolve) => { setTimeout(resolve, 300) }).then(() => dispatch(removeTask(task._id)))
   }
 
   return (
-    <li ref={elementRef} className="border-b border-gray-200 last:border-none list-none" id={`task-${task.id}`}>
+    <li ref={elementRef} className="border-b border-gray-200 last:border-none list-none" id={`task-${task._id}`}>
       <div ref={setNodeRef} style={style} className="list-none">
         <div className={`p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-200 ${task.important ? 'border-l-4 border-yellow-400' : ''}}`}>
           <div className="flex items-center">
-            {/* Drag Handle */}
             <div
               {...attributes}
               {...listeners}
@@ -56,7 +54,7 @@ export const SortableTaskItem: React.FC<Props> = ({ task }) => {
               ⋮⋮
             </div>
             <button
-              onClick={() => dispatch(toggleImportant(task.id))}
+              onClick={() => dispatch(toggleImportant(task._id))}
               title='add to important'
               className={`mr-2 text-xl ${task.important ? 'text-yellow-400' : 'text-gray-400'}`}
               >
@@ -64,13 +62,12 @@ export const SortableTaskItem: React.FC<Props> = ({ task }) => {
 
               ★
             </button>
-            {/* Task */}
             <div className="flex-1">
               <div className="flex items-center justify-between">
                 <PrioritySelect
                   priority={task.priority}
                   onChange={(priority) =>
-                    dispatch(setPriority({ id: task.id, priority }))
+                    dispatch(setPriority({ _id: task._id, priority }))
                   }
                 />
                 <label className="flex items-center space-x-3 w-full">

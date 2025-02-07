@@ -83,15 +83,13 @@ export const TaskList: React.FC = () => {
     const { active, over } = event;
 
     if (active && over && active.id !== over.id) {
-      const oldIndex = filteredTasks.findIndex((task) => task.id === active.id);
-      const newIndex = filteredTasks.findIndex((task) => task.id === over.id);
+      const oldIndex = filteredTasks.findIndex((task) => task._id === active.id);
+      const newIndex = filteredTasks.findIndex((task) => task._id === over.id);
 
-      console.log('oldIndex', oldIndex);
-      console.log('newIndex', newIndex);
       if (oldIndex !== -1 && newIndex !== -1) {
         const reorderedTasks = [...tasks];
-        const oldGlobalIndex = tasks.findIndex(task => task.id === filteredTasks[oldIndex].id);
-        const newGlobalIndex = tasks.findIndex(task => task.id === filteredTasks[newIndex].id);
+        const oldGlobalIndex = tasks.findIndex(task => task._id === filteredTasks[oldIndex]._id);
+        const newGlobalIndex = tasks.findIndex(task => task._id === filteredTasks[newIndex]._id);
 
         const [movedTask] = reorderedTasks.splice(oldGlobalIndex, 1);
         reorderedTasks.splice(newGlobalIndex, 0, movedTask);
@@ -108,13 +106,13 @@ export const TaskList: React.FC = () => {
       onDragEnd={handleDragEnd}
     >
       <SortableContext
-        items={filteredTasks.map(task => task.id)}
+        items={filteredTasks.map(task => task._id)}
         strategy={verticalListSortingStrategy}
       >
         <div className="space-y-2">
           <ProgressBar completed={completedTasks} total={tasks.length} />
           {filteredTasks.map((task) => (
-            <SortableTaskItem key={task.id} task={task} />
+            <SortableTaskItem key={task._id} task={task} />
           ))}
         </div>
         <ClearCompletedBtn tasks={tasks} />
