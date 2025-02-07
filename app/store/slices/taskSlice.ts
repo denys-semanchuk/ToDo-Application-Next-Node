@@ -146,7 +146,8 @@ const taskSlice = createSlice({
     });
 
     builder.addCase(deleteTask.fulfilled, (state, action) => {
-      state.tasks = state.tasks.filter((task) => task._id !== +action.payload);
+      console.log('впавпв')
+      state.tasks = state.tasks.filter((task) => task._id !== action.payload);
     });
   },
 });

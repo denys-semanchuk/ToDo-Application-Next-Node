@@ -17,7 +17,7 @@ export const taskApi = {
     return response.data;
   },
 
-  async deleteTask(id: string) {
+  async deleteTask(id: number) {
     await api.delete(`/tasks/${id}`);
   },
 

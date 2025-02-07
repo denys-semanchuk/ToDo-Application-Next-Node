@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { FilterType, RootState, SortType } from '../../types'
 import { useSelector, useDispatch } from 'react-redux'
 import { Notification } from '../Notification/Notification'
@@ -9,24 +9,11 @@ import { SortableTaskItem } from './SortableTaskItem';
 import { reorderTasks } from 'store/slices/taskSlice';
 import { ClearCompletedBtn } from 'components/ClearCompletedBtn/ClearCompletedBtn';
 import { ProgressBar } from 'components/ProgressBar/ProgressBar';
-import { fetchTasks } from 'store/thunks/taskThunks'
 import { AppDispatch } from '../../../pages/login'
 
 export const TaskList: React.FC = () => {
-  const [error, setError] = useState<string | null>(null)
   const dispatch = useDispatch<AppDispatch>()
-  const { loading } = useSelector((state: RootState) => state.tasks)
-
-  useEffect(() => {
-    const loadTasks = async () => {
-      try {
-        await dispatch(fetchTasks()).unwrap()
-      } catch (err) {
-        setError(err as string)
-      }
-    }
-    loadTasks()
-  }, [])
+  const { tasks, filter, loading } = useSelector((state: RootState) => state.tasks);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -36,15 +23,6 @@ export const TaskList: React.FC = () => {
   );
 
 
-  const { tasks, filter } = useSelector((state: RootState) => {
-    try {
-      return state.tasks;
-    } catch (err) {
-      setError('Failed to load tasks');
-      console.log(err)
-      return { tasks: [], filter: FilterType.ALL, sort: SortType.ASC };
-    }
-  });
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">

@@ -3,10 +3,12 @@ import React, { ChangeEvent, useRef } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Task } from '../../types';
-import { removeTask, setPriority, toggleImportant, toggleTask, updateTaskText } from '../../store/slices/taskSlice';
+import { setPriority, toggleImportant, toggleTask, updateTaskText } from '../../store/slices/taskSlice';
 import { useDispatch } from 'react-redux';
 import { AutoResizeTextArea } from './../AutoResizeTextarea/AutoResizeTextArea';
 import { PrioritySelect } from './../PrioritySelect/PrioritySelect';
+import { deleteTask } from 'store/thunks/taskThunks';
+import { AppDispatch } from '../../../pages/login';
 
 interface Props {
   task: Task;
@@ -25,7 +27,7 @@ export const SortableTaskItem: React.FC<Props> = ({ task }) => {
     transition,
   };
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const elementRef = useRef<HTMLLIElement>(null)
   const handleChange = () => {
     dispatch(toggleTask(task._id))
@@ -38,7 +40,7 @@ export const SortableTaskItem: React.FC<Props> = ({ task }) => {
   const handleDelete = () => {
     elementRef.current?.classList.add('task-exit')
 
-    new Promise((resolve) => { setTimeout(resolve, 300) }).then(() => dispatch(removeTask(task._id)))
+    new Promise((resolve) => { setTimeout(resolve, 300) }).then(() => dispatch(deleteTask(task._id)))
   }
 
   return (
