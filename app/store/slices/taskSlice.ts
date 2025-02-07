@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Priority, SortType, Task, FilterType } from "../../types";
+import { createTask, deleteTask, fetchTasks, updateTask } from "store/thunks/taskThunks";
 
 const STORAGE_KEY = "tasks";
 
@@ -7,10 +8,18 @@ const STORAGE_KEY = "tasks";
 //   const saved = localStorage.getItem(STORAGE_KEY);
 //   return saved ? JSON.parse(saved) : [];
 // };
-const initialState: { tasks: Task[]; filter: FilterType; sort: SortType } = {
+const initialState: {
+  tasks: Task[];
+  filter: FilterType;
+  sort: SortType;
+  loading: boolean;
+  error: string |  null
+} = {
   tasks: [],
   filter: FilterType.ALL,
   sort: SortType.ASC,
+  loading: false,
+  error: null
 };
 
 const taskSlice = createSlice({
@@ -61,7 +70,9 @@ const taskSlice = createSlice({
         state.sort = SortType.ASC;
       }
       state.tasks = state.tasks.sort((a, b) =>
-        state.sort === SortType.ASC ? a.timestamp - b.timestamp : b.timestamp - a.timestamp
+        state.sort === SortType.ASC
+          ? a.timestamp - b.timestamp
+          : b.timestamp - a.timestamp
       );
     },
 
@@ -76,17 +87,52 @@ const taskSlice = createSlice({
     },
 
     clearCompleted: (state) => {
-      state.tasks = state.tasks.filter(task => !task.completed);
+      state.tasks = state.tasks.filter((task) => !task.completed);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state.tasks));
     },
 
-    setPriority: (state, action: PayloadAction<{ id: number; priority: Priority }>) => {
-      const task = state.tasks.find(task => task.id === action.payload.id);
+    setPriority: (
+      state,
+      action: PayloadAction<{ id: number; priority: Priority }>
+    ) => {
+      const task = state.tasks.find((task) => task.id === action.payload.id);
       if (task) {
         task.priority = action.payload.priority;
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state.tasks));
       }
     },
+  },
+  extraReducers: (builder) => {
+    // Fetch Tasks
+    builder.addCase(fetchTasks.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(fetchTasks.fulfilled, (state, action) => {
+      state.tasks = action.payload;
+      state.loading = false;
+    });
+    builder.addCase(fetchTasks.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload as string;
+    });
+
+    builder.addCase(createTask.fulfilled, (state, action) => {
+      state.tasks.push(action.payload);
+    });
+
+    builder.addCase(updateTask.fulfilled, (state, action) => {
+      const index = state.tasks.findIndex(
+        (task) => task.id === action.payload._id
+      );
+      if (index !== -1) {
+        state.tasks[index] = action.payload;
+      }
+    });
+
+    builder.addCase(deleteTask.fulfilled, (state, action) => {
+      state.tasks = state.tasks.filter((task) => task.id !== +action.payload);
+    });
   },
 });
 export const {
@@ -94,7 +140,7 @@ export const {
   removeTask,
   toggleTask,
   setFilter,
-  updateTask,
+  updateTask: updateTaskText,
   setSortingByTime,
   reorderTasks,
   toggleImportant,

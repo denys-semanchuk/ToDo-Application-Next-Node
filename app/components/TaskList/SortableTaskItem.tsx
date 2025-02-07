@@ -3,7 +3,7 @@ import React, { ChangeEvent, useRef } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Task } from '../../types';
-import { removeTask, setPriority, toggleImportant, toggleTask, updateTask } from '../../store/slices/taskSlice';
+import { removeTask, setPriority, toggleImportant, toggleTask, updateTaskText } from '../../store/slices/taskSlice';
 import { useDispatch } from 'react-redux';
 import { AutoResizeTextArea } from './../AutoResizeTextarea/AutoResizeTextArea';
 import { PrioritySelect } from './../PrioritySelect/PrioritySelect';
@@ -32,7 +32,7 @@ export const SortableTaskItem: React.FC<Props> = ({ task }) => {
   }
 
   const handleTaskTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    dispatch(updateTask({ id: task.id, text: e.target.value }))
+    dispatch(updateTaskText({ id: task.id, text: e.target.value }))
   }
 
   const handleDelete = () => {

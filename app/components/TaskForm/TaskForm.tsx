@@ -1,26 +1,34 @@
 "use client"
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addTask } from '../../store/slices/taskSlice';
 import { Notification } from '../Notification/Notification';
+import { createTask } from 'store/thunks/taskThunks';
+import { AppDispatch } from '../../../pages/login';
 
 const MAX_LENGTH = 200;
 
 export const TaskForm = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const [taskText, setTaskText] = useState('')
   const [error, setError] = useState<string | null>(null)
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const [loading, setLoading] = useState(false)
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (taskText.trim()) {
-      dispatch(addTask(taskText))
-      setTaskText('')
-    } else {
-      setError('Task text is required')
-      setTimeout(() => {
-        setError(null)
-      }, 3000)
+    if (!taskText.trim()) {
+      setError('Task title is required')
+      setTimeout(() => setError(null), 3000)
+      return
+    }
+
+    try {
+      setLoading(true)
+      await dispatch(createTask({ text: taskText, important: false })).unwrap()
+      setTaskText("")
+    } catch (err) {
+      setError(err as string)
+      setTimeout(() => setError(null), 3000)
+    } finally {
+      setLoading(false)
     }
   }
 

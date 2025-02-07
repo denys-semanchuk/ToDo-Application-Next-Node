@@ -15,6 +15,7 @@ export type RootState = {
     tasks: Task[];
     filter: FilterType;
     sort: SortType;
+    loading: boolean
   };
   auth: AuthState;
 };

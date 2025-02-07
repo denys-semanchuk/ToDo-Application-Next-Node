@@ -26,9 +26,8 @@ export type Task = {
 }
 
 export interface CreateTaskDto {
-  title: string;
-  description?: string;
-  important?: boolean;
+  text: string;
+  important: boolean;
 }
 
 export interface UpdateTaskDto {

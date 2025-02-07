@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FilterType, RootState, SortType } from '../../types'
 import { useSelector, useDispatch } from 'react-redux'
 import { Notification } from '../Notification/Notification'
@@ -9,16 +9,33 @@ import { SortableTaskItem } from './SortableTaskItem';
 import { reorderTasks } from 'store/slices/taskSlice';
 import { ClearCompletedBtn } from 'components/ClearCompletedBtn/ClearCompletedBtn';
 import { ProgressBar } from 'components/ProgressBar/ProgressBar';
+import { fetchTasks } from 'store/thunks/taskThunks'
+import { AppDispatch } from '../../../pages/login'
 
 export const TaskList: React.FC = () => {
   const [error, setError] = useState<string | null>(null)
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>()
+  const { loading } = useSelector((state: RootState) => state.tasks)
+
+  useEffect(() => {
+    const loadTasks = async () => {
+      try {
+        await dispatch(fetchTasks()).unwrap()
+      } catch (err) {
+        setError(err as string)
+      }
+    }
+    loadTasks()
+  }, [])
+
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
   );
+
+
   const { tasks, filter } = useSelector((state: RootState) => {
     try {
       return state.tasks;
@@ -28,6 +45,14 @@ export const TaskList: React.FC = () => {
       return { tasks: [], filter: FilterType.ALL, sort: SortType.ASC };
     }
   });
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900" />
+      </div>
+    )
+  }
+
   if (error) {
     return <Notification message={error} type="error" />;
   }
