@@ -11,7 +11,6 @@ export const TaskForm = () => {
   const dispatch = useDispatch<AppDispatch>()
   const [taskText, setTaskText] = useState('')
   const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!taskText.trim()) {
@@ -19,17 +18,15 @@ export const TaskForm = () => {
       setTimeout(() => setError(null), 3000)
       return
     }
-
+    const tempText = taskText;
     try {
-      setLoading(true)
-      await dispatch(createTask({ text: taskText, important: false })).unwrap()
       setTaskText("")
+      await dispatch(createTask({ text: taskText, important: false })).unwrap()
     } catch (err) {
+      setTaskText(tempText)
       setError(err as string)
       setTimeout(() => setError(null), 3000)
-    } finally {
-      setLoading(false)
-    }
+    } 
   }
 
 
