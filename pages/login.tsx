@@ -8,7 +8,6 @@ import { loginThunk } from 'store/thunks/authThunks'
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit'
 import { store } from './../app/store/index';
 import { GuestGuard } from 'components/GuestGuard/GuestGuard'
-import { Header } from 'components/Header/Header'
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -46,7 +45,6 @@ export default function LoginPage() {
 
   return (
     <GuestGuard>
-      <Header />
       <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>

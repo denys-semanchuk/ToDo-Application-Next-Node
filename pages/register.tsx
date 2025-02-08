@@ -7,7 +7,6 @@ import Link from 'next/link';
 import { AppDispatch } from './login';
 import { RootState } from 'types';
 import { GuestGuard } from 'components/GuestGuard/GuestGuard';
-import { Header } from 'components/Header/Header';
 
 const validationSchema = Yup.object({
   username: Yup.string()
@@ -45,7 +44,6 @@ export default function RegisterPage() {
 
   return (
     <GuestGuard>
-      <Header/>
       <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>

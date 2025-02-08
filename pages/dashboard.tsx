@@ -1,13 +1,10 @@
 'use client'
 import Link from 'next/link'
 import { CheckCircleIcon, StarIcon, FunnelIcon } from '@heroicons/react/24/outline';
-import { Header } from 'components/Header/Header';
 
 export default function Dashboard() {
   return (
     <>
-      <Header />
-
       <div className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
         <div className="max-w-7xl mx-auto px-4 py-20 sm:px-6 lg:px-8">
           <div className="text-center">
@@ -60,29 +57,6 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <footer className="bg-gray-800 text-white">
-        <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-sm font-semibold uppercase tracking-wider">Product</h3>
-              <ul className="mt-4 space-y-4">
-                <li><Link href="#" className="text-gray-300 hover:text-white">Features</Link></li>
-                <li><Link href="#" className="text-gray-300 hover:text-white">Pricing</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold uppercase tracking-wider">Support</h3>
-              <ul className="mt-4 space-y-4">
-                <li><Link href="#" className="text-gray-300 hover:text-white">Documentation</Link></li>
-                <li><Link href="#" className="text-gray-300 hover:text-white">Help Center</Link></li>
-              </ul>
-            </div>
-          </div>
-          <div className="mt-8 border-t border-gray-700 pt-8">
-            <p className="text-center text-gray-400">&copy; 2024 TaskMaster. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
     </>
   )
 }

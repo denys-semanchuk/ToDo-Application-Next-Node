@@ -4,7 +4,6 @@ import { RootState } from 'types'
 import { Doughnut } from 'react-chartjs-2'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { CalendarIcon, ChartBarIcon, CheckCircleIcon, ClockIcon, FireIcon } from '@heroicons/react/24/outline'
-import { Header } from 'components/Header/Header'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -59,7 +58,6 @@ export default function Dashboard() {
   }
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
 
       <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
