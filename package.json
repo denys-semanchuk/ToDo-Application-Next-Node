@@ -6,7 +6,11 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "docker:build": "docker build -t todo-app .",
+    "docker:run": "docker run -p 3000:3000 todo-app",
+    "docker:compose": "docker-compose up",
+    "docker:compose:build": "docker-compose up --build"
   },
   "dependencies": {
     "@dnd-kit/sortable": "^10.0.0",
