@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { taskApi } from '../../services/taskApi'
-import { CreateTaskDto, Task, UpdateTaskDto } from '../../types/tasksTypes'
+import { CreateTaskDto, Task } from '../../types/tasksTypes'
 import { isApiError } from 'utils/isApiError'
 
 export const fetchTasks = createAsyncThunk(
@@ -33,15 +33,15 @@ export const createTask = createAsyncThunk<Task, { text: string; important?: boo
   }
 )
 
-export const updateTask = createAsyncThunk(
+export const updateTaskText = createAsyncThunk(
   'tasks/updateTask',
-  async ({ id, task }: { id: number; task: UpdateTaskDto }, { rejectWithValue }) => {
+  async ({ id, text }: { id: number; text: string }, { rejectWithValue }) => {
     try {
-      const updatedTask = await taskApi.updateTask(id, task)
+      const updatedTask = await taskApi.updateTask(id, text)
       return updatedTask
     } catch (error) {
       if (isApiError(error)) {
-        return rejectWithValue(error.response?.data?.message || 'Failed to create task')
+        return rejectWithValue(error.response?.data?.message || 'Failed to update task')
       }
       return rejectWithValue('An unexpected error occurred')
     }
@@ -72,6 +72,21 @@ export const toggleImportant = createAsyncThunk(
     } catch (error) {
       if (isApiError(error)) {
         return rejectWithValue(error.response?.data?.message || 'Failed to load task')
+      }
+      return rejectWithValue('An unexpected error occurred')
+    }
+  }
+)
+
+export const toggleCompleted= createAsyncThunk(
+  'tasks/toggleCompleted',
+  async (id: number, { rejectWithValue }) => {
+    try {
+      await taskApi.toggleCompleted(id)
+      return id
+    } catch (error) {
+      if (isApiError(error)) {
+        return rejectWithValue(error.response?.data?.message || 'Failed to toggle task\'s important')
       }
       return rejectWithValue('An unexpected error occurred')
     }

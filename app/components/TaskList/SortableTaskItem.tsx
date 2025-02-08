@@ -1,14 +1,15 @@
 "use client"
-import React, { ChangeEvent, useRef } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Task } from '../../types';
-import { toggleImportant, deleteTask } from '../../store/thunks/taskThunks'
-import { setPriority, toggleTask, updateTaskText } from '../../store/slices/taskSlice';
+import { toggleImportant, deleteTask, toggleCompleted, updateTaskText } from '../../store/thunks/taskThunks'
+import { setPriority } from '../../store/slices/taskSlice';
 import { useDispatch } from 'react-redux';
 import { AutoResizeTextArea } from './../AutoResizeTextarea/AutoResizeTextArea';
 import { PrioritySelect } from './../PrioritySelect/PrioritySelect';
 import { AppDispatch } from '../../../pages/login';
+import { useDebounce } from 'hooks/useDebounce';
 
 interface Props {
   task: Task;
@@ -29,13 +30,23 @@ export const SortableTaskItem: React.FC<Props> = ({ task }) => {
 
   const dispatch = useDispatch<AppDispatch>()
   const elementRef = useRef<HTMLLIElement>(null)
-  const handleChange = () => {
-    dispatch(toggleTask(task._id))
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation()
+    dispatch(toggleCompleted(task._id))
   }
 
+  const [taskText, setTaskText] = useState(task.text);
+  const debouncedTaskText = useDebounce(taskText, 1000);
+
   const handleTaskTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    dispatch(updateTaskText({ _id: task._id, text: e.target.value }))
-  }
+    setTaskText(e.target.value);
+  };
+
+  React.useEffect(() => {
+    if (debouncedTaskText !== task.text) {
+      dispatch(updateTaskText({ id: task._id, text: debouncedTaskText }));
+    }
+  }, [debouncedTaskText]);
 
   const handleDelete = () => {
     elementRef.current?.classList.add('task-exit')
@@ -80,7 +91,7 @@ export const SortableTaskItem: React.FC<Props> = ({ task }) => {
                     className="w-4 h-4 accent-blue-500 cursor-pointer"
                   />
                   <AutoResizeTextArea
-                    value={task.text}
+                    value={taskText}
                     onChange={handleTaskTextChange}
                     className={`w-full ${task.completed ? 'line-through text-gray-400' : 'text-gray-700'
                       } focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-2`}

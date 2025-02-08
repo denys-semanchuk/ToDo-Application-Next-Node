@@ -1,6 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Priority, SortType, Task, FilterType } from "../../types";
-import { createTask, deleteTask, fetchTasks, updateTask, toggleImportant } from "store/thunks/taskThunks";
+import {
+  createTask,
+  deleteTask,
+  fetchTasks,
+  updateTaskText,
+  toggleImportant,
+  toggleCompleted,
+} from "store/thunks/taskThunks";
 
 const STORAGE_KEY = "tasks";
 
@@ -9,13 +16,13 @@ const initialState: {
   filter: FilterType;
   sort: SortType;
   loading: boolean;
-  error: string |  null
+  error: string | null;
 } = {
   tasks: [],
   filter: FilterType.ALL,
   sort: SortType.ASC,
   loading: false,
-  error: null
+  error: null,
 };
 
 const taskSlice = createSlice({
@@ -107,44 +114,52 @@ const taskSlice = createSlice({
       state.tasks = action.payload;
       state.loading = false;
     });
-    
+
     builder.addCase(createTask.pending, (state, action) => {
       const optimisticTask: Task = {
         _id: action.meta.arg._id,
-        text: action.meta.arg.text || '',
+        text: action.meta.arg.text || "",
         completed: false,
         important: action.meta.arg.important || false,
         timestamp: Date.now(),
-        priority: Priority.LOW
-      }
-      state.tasks.unshift(optimisticTask)
-    })
-    
-    builder.addCase(createTask.fulfilled, (state, action) => {
-      state.tasks = state.tasks.filter(task => task._id !== action.meta.arg._id)
-      state.tasks.unshift(action.payload)
-    })
+        priority: Priority.LOW,
+      };
+      state.tasks.unshift(optimisticTask);
+    });
 
-    builder.addCase(createTask.rejected, (state,action) => {
+    builder.addCase(createTask.fulfilled, (state, action) => {
+      state.tasks = state.tasks.filter(
+        (task) => task._id !== action.meta.arg._id
+      );
+      state.tasks.unshift(action.payload);
+    });
+
+    builder.addCase(createTask.rejected, (state, action) => {
       state.loading = false;
-      state.tasks = state.tasks.filter(task => task._id !== action.meta.arg._id)
-      state.error = action.payload as string
-    })
+      state.tasks = state.tasks.filter(
+        (task) => task._id !== action.meta.arg._id
+      );
+      state.error = action.payload as string;
+    });
     builder.addCase(fetchTasks.rejected, (state, action) => {
       state.loading = false;
-      state.tasks = state.tasks.splice(0, 1)
-      state.error = action.payload as string
+      state.tasks = state.tasks.splice(0, 1);
+      state.error = action.payload as string;
     });
 
-    builder.addCase(updateTask.fulfilled, (state, action) => {
-      const index = state.tasks.findIndex(
-        (task) => task._id === action.payload._id
-      );
-      if (index !== -1) {
-        state.tasks[index] = action.payload;
+    builder.addCase(updateTaskText.pending, (state, action) => {
+      const task = state.tasks.find((t) => t._id === action.meta.arg.id);
+      if (task) {
+        task.text = action.meta.arg.text;
       }
     });
 
+    builder.addCase(updateTaskText.fulfilled, (state, action) => {
+      const task = state.tasks.find((t) => t._id === action.meta.arg.id);
+      if (task) {
+        task.text = action.payload.text;
+      }
+    });
     builder.addCase(deleteTask.fulfilled, (state, action) => {
       state.tasks = state.tasks.filter((task) => task._id !== action.payload);
     });
@@ -155,15 +170,7 @@ const taskSlice = createSlice({
         task.important = !task.important;
       }
     });
-  
-    builder.addCase(toggleImportant.fulfilled, (state, action) => {
-      const task = state.tasks.find((t) => t._id === action.payload);
-      if (task) {
-        task.important = !task.important;
-      }
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.tasks));
-    });
-  
+
     builder.addCase(toggleImportant.rejected, (state, action) => {
       const task = state.tasks.find((t) => t._id === action.meta.arg);
       if (task) {
@@ -171,8 +178,20 @@ const taskSlice = createSlice({
       }
       state.error = action.payload as string;
     });
-  
-  
+    builder.addCase(toggleCompleted.pending, (state, action) => {
+      const task = state.tasks.find((t) => t._id === action.meta.arg);
+      if (task) {
+        task.completed = !task.completed;
+      }
+    });
+
+    builder.addCase(toggleCompleted.rejected, (state, action) => {
+      const task = state.tasks.find((t) => t._id === action.meta.arg);
+      if (task) {
+        task.completed = !task.completed;
+      }
+      state.error = action.payload as string;
+    });
   },
 });
 export const {
@@ -180,7 +199,6 @@ export const {
   removeTask,
   toggleTask,
   setFilter,
-  updateTask: updateTaskText,
   setSortingByTime,
   reorderTasks,
   clearCompleted,

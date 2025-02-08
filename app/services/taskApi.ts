@@ -1,5 +1,5 @@
 import { api } from "services";
-import { CreateTaskDto, UpdateTaskDto } from "../types/tasksTypes";
+import { CreateTaskDto } from "../types/tasksTypes";
 
 export const taskApi = {
   async getTasks() {
@@ -12,8 +12,10 @@ export const taskApi = {
     return response.data;
   },
 
-  async updateTask(id: number, task: UpdateTaskDto) {
-    const response = await api.put(`/tasks/${id}`, task);
+  async updateTask(id: number, text:string) {
+    const response = await api.put(`/tasks/${id}`, {
+      text
+    });
     return response.data;
   },
 
