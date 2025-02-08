@@ -35,7 +35,7 @@ export const createTask = createAsyncThunk<Task, { text: string; important?: boo
 
 export const updateTask = createAsyncThunk(
   'tasks/updateTask',
-  async ({ id, task }: { id: string; task: UpdateTaskDto }, { rejectWithValue }) => {
+  async ({ id, task }: { id: number; task: UpdateTaskDto }, { rejectWithValue }) => {
     try {
       const updatedTask = await taskApi.updateTask(id, task)
       return updatedTask
