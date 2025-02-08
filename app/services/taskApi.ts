@@ -1,5 +1,5 @@
 import { api } from "services";
-import { CreateTaskDto } from "../types/tasksTypes";
+import { CreateTaskDto, Priority } from "../types/tasksTypes";
 
 export const taskApi = {
   async getTasks() {
@@ -32,4 +32,11 @@ export const taskApi = {
     const response = await api.patch(`/tasks/${id}/completed`);
     return response.data;
   },
+
+  async togglePriority(id: number, priority: Priority) {
+    const response = await api.patch(`/tasks/${id}/priority`, { priority });
+    return response.data;
+  },
 };
+
+

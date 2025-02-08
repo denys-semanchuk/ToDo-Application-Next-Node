@@ -101,7 +101,6 @@ const taskSlice = createSlice({
       const task = state.tasks.find((task) => task._id === action.payload._id);
       if (task) {
         task.priority = action.payload.priority;
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state.tasks));
       }
     },
   },

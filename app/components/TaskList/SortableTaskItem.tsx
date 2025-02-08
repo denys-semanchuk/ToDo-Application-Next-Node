@@ -4,7 +4,6 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Task } from '../../types';
 import { toggleImportant, deleteTask, toggleCompleted, updateTaskText } from '../../store/thunks/taskThunks'
-import { setPriority } from '../../store/slices/taskSlice';
 import { useDispatch } from 'react-redux';
 import { AutoResizeTextArea } from './../AutoResizeTextarea/AutoResizeTextArea';
 import { PrioritySelect } from './../PrioritySelect/PrioritySelect';
@@ -78,10 +77,8 @@ export const SortableTaskItem: React.FC<Props> = ({ task }) => {
             <div className="flex-1">
               <div className="flex items-center justify-between">
                 <PrioritySelect
-                  priority={task.priority}
-                  onChange={(priority) =>
-                    dispatch(setPriority({ _id: task._id, priority }))
-                  }
+                  currentPriority={task.priority}
+                  taskId={task._id}
                 />
                 <label className="flex items-center space-x-3 w-full">
                   <input

@@ -1,7 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { taskApi } from '../../services/taskApi'
-import { CreateTaskDto, Task } from '../../types/tasksTypes'
+import { CreateTaskDto, Priority, Task } from '../../types/tasksTypes'
 import { isApiError } from 'utils/isApiError'
+import { setPriority } from 'store/slices/taskSlice'
 
 export const fetchTasks = createAsyncThunk(
   'tasks/fetchTasks',
@@ -92,3 +93,16 @@ export const toggleCompleted= createAsyncThunk(
     }
   }
 )
+
+export const togglePriority = createAsyncThunk(
+  'tasks/togglePriority',
+  async ({ _id, priority }: { _id: number; priority: Priority}, { dispatch }) => {
+    try {
+      const updatedTask = await taskApi.togglePriority(_id, priority);
+      dispatch(setPriority({ _id, priority }));
+      return updatedTask;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
