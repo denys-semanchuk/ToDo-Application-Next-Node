@@ -4,7 +4,7 @@ import { store } from '../app/store/index';
 import { AppProvider } from 'providers/AppProvider';
 import { Header } from 'components/Header/Header';
 import { Footer } from 'components/Footer/Footer';
-import './globals.css';
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
