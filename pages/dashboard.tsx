@@ -1,4 +1,3 @@
-'use client'
 import Link from 'next/link'
 import { CheckCircleIcon, StarIcon, FunnelIcon } from '@heroicons/react/24/outline';
 

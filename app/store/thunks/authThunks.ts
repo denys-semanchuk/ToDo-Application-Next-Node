@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import api, { authApi } from 'services/authApi';
-import { LoginCredentials, RegisterCredentials, User } from 'types';
+import { LoginCredentials, RegisterCredentials, User } from '../../../types';
 
 export const loginThunk = createAsyncThunk<
   { user: User; token: string },

@@ -1,7 +1,7 @@
 import { PropsWithChildren, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { checkAuthToken } from 'store/thunks/authThunks';
-import { RootState } from 'types';
+import { RootState } from '../../types';
 import { AppDispatch } from '../../pages/login';
 import { useLoadTasks } from 'hooks/useLoadTasks';
 
@@ -13,7 +13,7 @@ export const AppProvider = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     dispatch(checkAuthToken())
-  }, [dispatch])
+  }, [])
 
   if (loading) {
     return (

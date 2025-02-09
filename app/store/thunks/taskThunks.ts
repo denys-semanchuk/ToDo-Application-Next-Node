@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { taskApi } from '../../services/taskApi'
-import { CreateTaskDto, Priority, Task } from '../../types/tasksTypes'
+import { CreateTaskDto, Priority, Task } from '../../../types/tasksTypes'
 import { isApiError } from 'utils/isApiError'
 import { setPriority } from 'store/slices/taskSlice'
 

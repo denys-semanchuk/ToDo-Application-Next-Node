@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import { FilterType, RootState } from '../../types'
+import { FilterType, RootState } from '../../../types'
 import { useSelector, useDispatch } from 'react-redux'
 import { Notification } from '../Notification/Notification'
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';

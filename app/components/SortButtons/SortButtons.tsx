@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSortingByTime, sortByPriority } from '../../store/slices/taskSlice';
-import { RootState } from '../../types';
+import { RootState } from '../../../types';
 import { SortButton } from '../SortButton/SortButton';
 import { FaClock, FaListOl } from 'react-icons/fa';
 

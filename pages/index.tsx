@@ -1,6 +1,6 @@
 'use client'
 import { useSelector } from 'react-redux'
-import { RootState } from 'types'
+import { RootState } from '../types'
 import { Doughnut } from 'react-chartjs-2'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { CalendarIcon, ChartBarIcon, CheckCircleIcon, ClockIcon, FireIcon } from '@heroicons/react/24/outline'

@@ -2,7 +2,7 @@
 import React, { ChangeEvent, useRef, useState } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Task } from '../../types';
+import { Task } from '../../../types';
 import { toggleImportant, deleteTask, toggleCompleted, updateTaskText } from '../../store/thunks/taskThunks'
 import { useDispatch } from 'react-redux';
 import { AutoResizeTextArea } from './../AutoResizeTextarea/AutoResizeTextArea';

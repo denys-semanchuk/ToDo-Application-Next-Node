@@ -1,5 +1,5 @@
 import { api } from "services";
-import { CreateTaskDto, Priority } from "../types/tasksTypes";
+import { CreateTaskDto, Priority } from "../../types/tasksTypes";
 
 export const taskApi = {
   async getTasks() {

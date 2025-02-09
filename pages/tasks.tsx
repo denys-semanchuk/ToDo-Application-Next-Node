@@ -3,7 +3,7 @@ import { FilterButtons } from "components/FilterButtons/FilterButtons";
 import { TaskForm } from "components/TaskForm/TaskForm";
 import { TaskList } from "components/TaskList/TaskList";
 import { useSelector } from "react-redux";
-import { RootState } from '../app/types/index';
+import { RootState } from '../types/index';
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { AnimatePresence, motion } from 'framer-motion';

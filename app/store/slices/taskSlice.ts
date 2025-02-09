@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Priority, SortType, Task, FilterType } from "../../types";
+import { Priority, SortType, Task, FilterType } from "../../../types";
 import {
   createTask,
   deleteTask,
@@ -8,7 +8,7 @@ import {
   toggleImportant,
   toggleCompleted,
 } from "store/thunks/taskThunks";
-import { TaskState } from "types/tasksTypes";
+import { TaskState } from "../../../types/tasksTypes";
 
 const STORAGE_KEY = "tasks";
 

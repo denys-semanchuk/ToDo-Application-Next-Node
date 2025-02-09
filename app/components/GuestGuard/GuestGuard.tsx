@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useSelector } from 'react-redux'
-import { RootState } from '../../types'
+import { RootState } from '../../../types'
 
 export const GuestGuard = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter()

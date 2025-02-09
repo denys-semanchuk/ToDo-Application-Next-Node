@@ -1,4 +1,4 @@
-import { LoginCredentials, RegisterCredentials} from '../types';
+import { LoginCredentials, RegisterCredentials} from '../../types';
 import { api } from 'services';
 
 export const authApi = {

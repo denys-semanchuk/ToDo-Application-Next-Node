@@ -1,5 +1,5 @@
 import React from 'react'
-import { SortType } from '../../types';
+import { SortType } from '../../../types';
 
 interface SortButtonProps {
   onClick: () => void;

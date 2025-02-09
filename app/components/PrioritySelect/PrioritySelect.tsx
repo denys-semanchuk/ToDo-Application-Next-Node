@@ -1,5 +1,5 @@
 import React from 'react';
-import { Priority } from '../../types';
+import { Priority } from '../../../types';
 import { useDispatch } from 'react-redux';
 import { togglePriority } from 'store/thunks/taskThunks';
 import { AppDispatch } from '../../../pages/login';
