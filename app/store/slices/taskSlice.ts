@@ -8,21 +8,18 @@ import {
   toggleImportant,
   toggleCompleted,
 } from "store/thunks/taskThunks";
+import { TaskState } from "types/tasksTypes";
 
 const STORAGE_KEY = "tasks";
 
-const initialState: {
-  tasks: Task[];
-  filter: FilterType;
-  sort: SortType;
-  loading: boolean;
-  error: string | null;
-} = {
+const initialState: TaskState = {
   tasks: [],
   filter: FilterType.ALL,
   sort: SortType.ASC,
   loading: false,
   error: null,
+  timeSort: SortType.ASC,
+  prioritySort: SortType.ASC,
 };
 
 const taskSlice = createSlice({
@@ -102,6 +99,20 @@ const taskSlice = createSlice({
       if (task) {
         task.priority = action.payload.priority;
       }
+    },
+    sortByPriority: (state) => {
+      state.prioritySort =
+        state.prioritySort === SortType.ASC ? SortType.DESC : SortType.ASC;
+      const priorityOrder = {
+        [Priority.HIGH]: 3,
+        [Priority.MEDIUM]: 2,
+        [Priority.LOW]: 1,
+      };
+      state.tasks = state.tasks.sort((a, b) => {
+        return state.prioritySort === SortType.ASC
+          ? priorityOrder[a.priority] - priorityOrder[b.priority]
+          : priorityOrder[b.priority] - priorityOrder[a.priority];
+      });
     },
   },
   extraReducers: (builder) => {
@@ -202,6 +213,7 @@ export const {
   reorderTasks,
   clearCompleted,
   setPriority,
+  sortByPriority,
 } = taskSlice.actions;
 
 export default taskSlice.reducer;

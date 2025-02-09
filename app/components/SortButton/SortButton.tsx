@@ -1,18 +1,23 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { setSortingByTime } from '../../store/slices/taskSlice';
-import { RootState, SortType } from '../../types';
+import { SortType } from '../../types';
 
-export const SortButton = () => {
-  const dispatch = useDispatch();
-  const sort = useSelector((state: RootState) => state.tasks.sort);
+interface SortButtonProps {
+  onClick: () => void;
+  title: string;
+  icon: React.ReactNode;
+  sortDirection?: SortType;
+}
 
-  const handleSort = () => dispatch(setSortingByTime());
-
+export const SortButton: React.FC<SortButtonProps> = ({ 
+  onClick, 
+  title, 
+  icon, 
+  sortDirection 
+}) => {
   return (
     <button
-      onClick={handleSort}
-      title='Sort Tasks'
+      onClick={onClick}
+      title={title}
       className={`
         p-2 
         rounded-full
@@ -22,26 +27,15 @@ export const SortButton = () => {
         transition-all 
         duration-400 
         transform 
-        hover:scale-300
+        hover:scale-110
         focus:outline-none 
         focus:ring-2 
         focus:ring-blue-400 
         focus:ring-opacity-50
-        ${sort === SortType.DESC ? 'rotate-180' : ''}
+        ${sortDirection === SortType.DESC ? 'rotate-180' : ''}
       `}
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-5"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-      >
-        <path
-          fillRule="evenodd"
-          d="M5.293 7.707a1 1 0 0 1 0-1.414l4-4a1 1 0 0 1 1.414 0l4 4a1 1 0 1 1-1.414 1.414L10 4.414l-3.293 3.293a1 1 0 0 1-1.414 0z"
-          clipRule="evenodd"
-        />
-      </svg>
+      {icon}
     </button>
   )
 }

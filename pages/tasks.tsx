@@ -1,6 +1,5 @@
 'use client'
 import { FilterButtons } from "components/FilterButtons/FilterButtons";
-import { SortButton } from "components/SortButton/SortButton";
 import { TaskForm } from "components/TaskForm/TaskForm";
 import { TaskList } from "components/TaskList/TaskList";
 import { useSelector } from "react-redux";
@@ -8,11 +7,11 @@ import { RootState } from '../app/types/index';
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { AnimatePresence, motion } from 'framer-motion';
+import { SortButtons } from "components/SortButtons/SortButtons";
 
 export default function Tasks() {
   const { user, loading, isAuthenticated } = useSelector((state: RootState) => state.auth)
   const router = useRouter();
-
   useEffect(() => {
     if (!isAuthenticated && !user && !loading) {
       router.push('/register');
@@ -99,7 +98,7 @@ export default function Tasks() {
               className='flex justify-between items-center mt-6'
             >
               <FilterButtons />
-              <SortButton />
+              <SortButtons />
             </motion.div>
 
             <motion.div 

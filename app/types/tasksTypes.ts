@@ -37,3 +37,13 @@ export interface UpdateTaskDto {
   important?: boolean;
   completed?: boolean;
 }
+
+export interface TaskState {
+  tasks: Task[];
+  filter: FilterType;
+  sort: SortType;
+  loading: boolean;
+  error: string | null;
+  timeSort: SortType;
+  prioritySort: SortType;
+}
