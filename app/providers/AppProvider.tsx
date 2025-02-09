@@ -5,7 +5,7 @@ import { RootState } from 'types';
 import { AppDispatch } from '../../pages/login';
 import { useLoadTasks } from 'hooks/useLoadTasks';
 
-export const AuthProvider = ({ children }: PropsWithChildren) => {
+export const AppProvider = ({ children }: PropsWithChildren) => {
   const dispatch = useDispatch<AppDispatch>()
   const { loading } = useSelector((state: RootState) => state.auth)
   
