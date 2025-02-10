@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 ChartJS.register(ArcElement, Tooltip, Legend)
 
 export default function Dashboard() {
-  const { user, isAuthenticated, loading } = useSelector((state: RootState) => state.auth)
+  const { user, isAuthenticated, loading } = useSelector((state: RootState) => state.auth);
   const { tasks, loading: tasksLoading } = useSelector((state: RootState) => state.tasks)
   const router = useRouter()
   const [isFirstRender, setIsFirstRender] = useState(true);
@@ -41,9 +41,9 @@ export default function Dashboard() {
       setIsFirstRender(false)
     }
     if (!isAuthenticated && !loading && !isFirstRender) {
-      router.push('/dashboard')
+      router.push('/dashboard');
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated, loading, isFirstRender]);
 
   if (loading) {
     return (

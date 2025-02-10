@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registerThunk } from '../app/store/thunks/authThunks';
 import Link from 'next/link';
 import { AppDispatch } from './login';
-import { RootState } from 'types';
 import { GuestGuard } from 'components/GuestGuard/GuestGuard';
+import { RootState } from '../types';
 
 const validationSchema = Yup.object({
   username: Yup.string()
