@@ -25,6 +25,8 @@ export default function RegisterPage() {
   const dispatch = useDispatch<AppDispatch>();
   const { loading, error } = useSelector((state: RootState) => state.auth);
 
+
+
   const formik = useFormik({
     initialValues: {
       username: '',
