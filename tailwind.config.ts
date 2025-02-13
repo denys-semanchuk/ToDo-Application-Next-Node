@@ -11,10 +11,10 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        'text-primary': '#1F2937',  
-        'text-secondary': '#4B5563', 
-        'text-muted': '#6B7280',     
-        'input-text': '#374151',     
+        'text-primary': '#FFFFFF',    // White text
+        'text-secondary': '#E5E7EB',  // Light gray for secondary text
+        'text-muted': '#9CA3AF',      // Muted gray for less important text
+        'input-text': '#FFFFFF',      // White text for inputs
       },
     },
   },

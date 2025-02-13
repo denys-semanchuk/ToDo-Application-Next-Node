@@ -42,10 +42,12 @@ body {
 @layer base {
   body {
     @apply text-text-primary dark:text-gray-200;
+    @apply bg-white;
   }
 
   input, textarea {
     @apply text-input-text dark:text-gray-200;
+    @apply text-input-text placeholder-text-muted;
   }
 
   ::placeholder {
