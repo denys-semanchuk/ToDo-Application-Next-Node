@@ -1,10 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion'
+import Head from 'next/head';
 
 export default function AboutPage() {
 
   return (
     <>
+      <Head>
+        <title>About | Todo App</title>
+        <meta name="description" content="Learn more about Todo App" />
+      </Head>
       <div className="min-h-screen bg-gray-50">
         <main className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
           <motion.div

@@ -1,5 +1,4 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import Head from 'next/head';
 import "../styles/globals.css";
 
 const geistSans = Geist({
@@ -19,11 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <Head>
-        <title>Todo App</title>
-        <meta name="description" content="A modern task management application" />
-        <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
-      </Head>
+
       <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
           {children}

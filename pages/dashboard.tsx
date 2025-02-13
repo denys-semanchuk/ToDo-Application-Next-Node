@@ -1,9 +1,14 @@
 import Link from 'next/link'
 import { CheckCircleIcon, StarIcon, FunnelIcon } from '@heroicons/react/24/outline';
+import Head from 'next/head';
 
 export default function Dashboard() {
   return (
     <>
+    <Head>
+        <title>Dashboard | Todo App</title>
+        <meta name="description" content="Learn more about Todo App" />
+      </Head>
       <div className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
         <div className="max-w-7xl mx-auto px-4 py-20 sm:px-6 lg:px-8">
           <div className="text-center">

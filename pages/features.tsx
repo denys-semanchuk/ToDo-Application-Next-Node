@@ -1,15 +1,16 @@
 'use client'
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  FaListUl, 
-  FaFilter, 
-  FaSort, 
-  FaClock, 
-  FaUserFriends, 
-  FaLock, 
+import {
+  FaListUl,
+  FaFilter,
+  FaSort,
+  FaClock,
+  FaUserFriends,
+  FaLock,
   FaArrowsAlt
 } from 'react-icons/fa';
+import Head from 'next/head';
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
@@ -57,79 +58,85 @@ const features = [
 
 export default function Features() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
-      <motion.div 
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        className="max-w-7xl mx-auto px-4 py-16"
-      >
-        <motion.div 
-          variants={fadeIn}
-          className="text-center mb-16"
+    <>
+      <Head>
+        <title>Features | Todo App</title>
+        <meta name="description" content="Learn more about Todo App" />
+      </Head>
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+        <motion.div
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          className="max-w-7xl mx-auto px-4 py-16"
         >
-          <motion.h1 
-            className="text-4xl font-bold text-gray-900 mb-4"
-            initial={{ scale: 0.5, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ type: "spring", stiffness: 100 }}
-          >
-            Powerful Features
-          </motion.h1>
-          <motion.p 
-            className="text-xl text-gray-600"
+          <motion.div
             variants={fadeIn}
+            className="text-center mb-16"
           >
-            Everything you need to stay productive and organized
-          </motion.p>
-        </motion.div>
-
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          variants={{
-            animate: {
-              transition: {
-                staggerChildren: 0.1
-              }
-            }
-          }}
-        >
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              variants={fadeIn}
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)"
-              }}
-              className="bg-white rounded-lg shadow-lg p-6"
+            <motion.h1
+              className="text-4xl font-bold text-gray-900 mb-4"
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ type: "spring", stiffness: 100 }}
             >
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0">
-                  {feature.icon}
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
-                  <p className="text-gray-600">{feature.description}</p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+              Powerful Features
+            </motion.h1>
+            <motion.p
+              className="text-xl text-gray-600"
+              variants={fadeIn}
+            >
+              Everything you need to stay productive and organized
+            </motion.p>
+          </motion.div>
 
-        <motion.div 
-          variants={fadeIn}
-          className="text-center mt-16"
-        >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            variants={{
+              animate: {
+                transition: {
+                  staggerChildren: 0.1
+                }
+              }
+            }}
           >
-            Get Started Free
-          </motion.button>
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                variants={fadeIn}
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)"
+                }}
+                className="bg-white rounded-lg shadow-lg p-6"
+              >
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0">
+                    {feature.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
+                    <p className="text-gray-600">{feature.description}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <motion.div
+            variants={fadeIn}
+            className="text-center mt-16"
+          >
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Get Started Free
+            </motion.button>
+          </motion.div>
         </motion.div>
-      </motion.div>
-    </div>
+      </div>
+    </>
   );
 }

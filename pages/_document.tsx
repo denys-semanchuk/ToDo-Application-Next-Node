@@ -4,8 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="description" content="A modern task management application" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       </Head>
       <body className="bg-gray-50">
         <Main />
