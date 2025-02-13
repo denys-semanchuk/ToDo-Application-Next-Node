@@ -30,7 +30,7 @@ export const PrioritySelect: React.FC<PrioritySelectProps> = ({ taskId, currentP
   };
 
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block ml-auto">
       <select 
         value={currentPriority}
         onChange={handlePriorityChange}
