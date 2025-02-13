@@ -1,19 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import Head from 'next/head';
 import "../styles/globals.css";
-import { Metadata } from 'next'
 
-export const metadata: Metadata = {
-  title: 'Todo App',
-  description: 'A modern task management application',
-  icons: {
-    icon: [
-      {
-        url: '/assets/favicon.svg',
-        type: 'image/svg+xml',
-      }
-    ]
-  }
-}
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -30,12 +18,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <>
+      <Head>
+        <title>Todo App</title>
+        <meta name="description" content="A modern task management application" />
+        <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+      </Head>
+      <html lang="en">
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
           {children}
-      </body>
-    </html>
+        </body>
+      </html>
+    </>
   );
 }
