@@ -49,19 +49,19 @@ const Pricing: React.FC = () => {
           <ul className="text-left space-y-4 mb-8">
             <li className="flex items-center">
               <FaCheckCircle className="text-green-500 mr-2" />
-              <span>Unlimited tasks</span>
+              <span className="text-gray-900">Unlimited tasks</span>
             </li>
             <li className="flex items-center">
               <FaCheckCircle className="text-green-500 mr-2" />
-              <span>Task prioritization</span>
+              <span className="text-gray-900">Task prioritization</span>
             </li>
             <li className="flex items-center">
               <FaCheckCircle className="text-green-500 mr-2" />
-              <span>Drag & drop organization</span>
+              <span className="text-gray-900">Drag & drop organization</span>
             </li>
             <li className="flex items-center">
               <FaCheckCircle className="text-green-500 mr-2" />
-              <span>Real-time collaboration</span>
+              <span className="text-gray-900">Real-time collaboration</span>
             </li>
           </ul>
           <button className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors">

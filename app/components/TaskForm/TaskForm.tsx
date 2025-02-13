@@ -50,7 +50,7 @@ export const TaskForm = () => {
           w-full
       px-4
       py-2
-      text-input-text
+      text-black
       dark:text-gray-200
       bg-white
       border
