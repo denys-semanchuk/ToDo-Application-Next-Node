@@ -11,22 +11,14 @@ export const loginThunk = createAsyncThunk<
   'auth/login',
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/api/auth/login`!, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(credentials),
-      })
+      const response = await api.post('auth/login', credentials)
 
-      const data = await response.json()
-
-      if (!response.ok) {
-        return rejectWithValue(data.message || 'Login failed')
+      if (response.status >= 400) {
+        return rejectWithValue(response.statusText || 'Login failed')
       }
 
-      localStorage.setItem('token', data.token)
-      return data
+      localStorage.setItem('token', response.data.token)
+      return response.data
     } catch (error) {
       console.error('Login failed:', error)
       return rejectWithValue('Network error')

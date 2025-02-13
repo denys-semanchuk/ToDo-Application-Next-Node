@@ -46,8 +46,7 @@ export default function Tasks() {
   }
 
   return (
-    <>
-      <AnimatePresence>
+    <AnimatePresence>
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -58,23 +57,23 @@ export default function Tasks() {
           variants={staggerChildren}
           initial="initial"
           animate="animate"
-          className="w-full max-w-2xl mx-auto px-2 py-8"
+          className="w-full max-w-2xl mx-auto px-4 sm:px-6 py-4 sm:py-8"
         >
           <motion.div 
             variants={fadeIn}
-            className="text-center mb-8"
+            className="text-center mb-4 sm:mb-8"
           >
             <motion.h1 
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ type: "spring", stiffness: 100 }}
-              className="text-3xl font-bold text-gray-800 mb-2"
+              className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2"
             >
               Todo App
             </motion.h1>
             <motion.p 
               variants={fadeIn}
-              className="text-gray-600"
+              className="text-sm sm:text-base text-gray-600"
             >
               Manage your tasks efficiently
             </motion.p>
@@ -82,7 +81,7 @@ export default function Tasks() {
 
           <motion.div 
             variants={fadeIn}
-            className="bg-white rounded-lg shadow-lg p-4"
+            className="bg-white rounded-lg shadow-lg p-3 sm:p-4"
             whileHover={{ 
               boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
               translateY: -5
@@ -95,7 +94,7 @@ export default function Tasks() {
 
             <motion.div 
               variants={fadeIn}
-              className='flex justify-between items-center mt-6'
+              className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0 mt-4 sm:mt-6'
             >
               <FilterButtons />
               <SortButtons />
@@ -103,7 +102,7 @@ export default function Tasks() {
 
             <motion.div 
               variants={fadeIn}
-              className="mt-6"
+              className="mt-4 sm:mt-6"
             >
               <TaskList />
             </motion.div>
@@ -111,7 +110,6 @@ export default function Tasks() {
         </motion.div>
       </motion.div>
     </AnimatePresence>
-    </>
   );
 }
 
