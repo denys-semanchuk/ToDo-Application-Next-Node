@@ -26,7 +26,7 @@ export const TaskForm = () => {
       setTaskText(tempText)
       setError(err as string)
       setTimeout(() => setError(null), 3000)
-    } 
+    }
   }
 
 
@@ -46,7 +46,22 @@ export const TaskForm = () => {
       <form
         className="min-w-full flex flex-col gap-2 w-full max-w-md">
         <input
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="
+          w-full
+          px-4 
+          py-2 
+          border 
+          border-gray-300 
+          rounded-md 
+          focus:outline-none 
+          focus:ring-2 
+          focus:ring-blue-500
+        text-input-text
+        dark:text-gray-200
+        bg-white
+        dark:bg-gray-800
+        dark:border-gray-700
+          "
           value={taskText}
           maxLength={MAX_LENGTH}
           type="text"

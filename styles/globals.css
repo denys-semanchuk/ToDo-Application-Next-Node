@@ -38,3 +38,17 @@ body {
   transform: translateY(20px);
   transition: opacity 300ms, transform 300ms;
 }
+
+@layer base {
+  body {
+    @apply text-text-primary dark:text-gray-200;
+  }
+
+  input, textarea {
+    @apply text-input-text dark:text-gray-200;
+  }
+
+  ::placeholder {
+    @apply text-text-muted dark:text-gray-400;
+  }
+}
