@@ -7,7 +7,6 @@ import { Suspense } from 'react';
 import '../styles/globals.css';
 import Head from 'next/head';
 
-// Dynamically import components with loading fallbacks
 const Header = dynamic(() => import('components/Header/Header').then(mod => mod.Header), {
   ssr: false,
   loading: () => <div className="h-16 bg-white shadow-sm" />
@@ -41,6 +40,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default dynamic(() => Promise.resolve(MyApp), {
-  ssr: false
-});
+export default MyApp
