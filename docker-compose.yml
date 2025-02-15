@@ -9,8 +9,12 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=development
+      - NEXT_PUBLIC_API_URI=http://localhost:5000
+      - WATCHPACK_POLLING=true
     volumes:
       - .:/app
       - /app/node_modules
       - /app/.next
     restart: always
+    stdin_open: true
+    tty: true
