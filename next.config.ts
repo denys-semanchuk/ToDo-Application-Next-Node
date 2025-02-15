@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   pageExtensions: ['tsx', 'ts'],
+  optimizeFonts: true,
   experimental: {
     // Remove optimizeCss as it's causing issues with critters
     turbo: {
