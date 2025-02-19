@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
   pageExtensions: ['tsx', 'ts'],
   optimizeFonts: true,
   experimental: {
-    // Remove optimizeCss as it's causing issues with critters
+    optimizeCss: true,
     turbo: {
       rules: {
         // Configure Turbopack rules here
