@@ -6,14 +6,7 @@ import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 import '../styles/globals.css';
 import Head from 'next/head';
-import { Geist } from 'next/font/google';
-
-const geist = Geist({
-  subsets: ['latin'],
-  display: 'swap',
-  adjustFontFallback: true,
-  preload: true,
-});
+import { GeistSans } from 'geist/font/sans';
 
 const Header = dynamic(() => import('components/Header/Header').then(mod => mod.Header), {
   ssr: false,
@@ -27,7 +20,7 @@ const Footer = dynamic(() => import('components/Footer/Footer').then(mod => mod.
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <div className={GeistSans.className}>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover" />
       </Head>
@@ -35,7 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <AppProvider>
           <div className="flex flex-col min-h-screen">
             <Header />
-            <main className={`${geist.className} flex-grow`}>
+            <main className="flex-grow">
               <Suspense fallback={<div className="min-h-screen bg-gray-50" />}>
                 <Component {...pageProps} />
               </Suspense>
@@ -44,7 +37,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           </div>
         </AppProvider>
       </Provider>
-    </>
+    </div>
   );
 }
 

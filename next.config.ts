@@ -3,6 +3,7 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  transpilePackages: ["geist"],
   poweredByHeader: false,
   pageExtensions: ['tsx', 'ts'],
   optimizeFonts: true,
