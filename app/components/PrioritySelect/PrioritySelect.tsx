@@ -53,7 +53,6 @@ export const PrioritySelect: React.FC<PrioritySelectProps> = ({ taskId, currentP
           focus:ring-blue-500
           focus:border-transparent
           transition-colors
-          w-[70px]
           sm:w-auto
         `}
       >

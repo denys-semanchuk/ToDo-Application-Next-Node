@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import Head from "next/head";
 import { useSelector } from "react-redux";
-import { RootState } from "../types/index";
+import { RootState } from "../../types/index";
 import { FilterButtons } from "components/FilterButtons/FilterButtons";
 import { TaskForm } from "components/TaskForm/TaskForm";
 import { TaskList } from "components/TaskList/TaskList";
