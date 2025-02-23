@@ -38,6 +38,7 @@ export const AutoResizeTextArea: React.FC<Props> = ({
       className={`${className} resize-none overflow-hidden`}
       maxLength={maxLength}
       rows={1}
+      placeholder='What needs to be done?'
     />
   );
 };
