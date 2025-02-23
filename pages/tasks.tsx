@@ -72,17 +72,17 @@ const Tasks: FC = () => {
             variants={animations.stagger}
             initial="initial"
             animate="animate"
-            className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-8"
+            className="w-full max-w-6xl mx-auto px-2 sm:px-6 py-4 sm:py-8"
           >
             <motion.div
               variants={animations.fadeIn}
-              className="text-center mb-4 sm:mb-8"
+              className="text-center mb-3 sm:mb-8"
             >
               <motion.h1
                 initial={{ scale: 0.5, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ type: "spring", stiffness: 100 }}
-                className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2"
+                className="text-xl sm:text-3xl font-bold text-gray-800 mb-1 sm:mb-2"
               >
                 Todo App
               </motion.h1>
@@ -96,7 +96,7 @@ const Tasks: FC = () => {
 
             <motion.div
               variants={animations.fadeIn}
-              className="bg-white rounded-lg shadow-lg p-3 sm:p-4"
+              className="bg-white rounded-lg shadow-lg p-2 sm:p-4"
               whileHover={{
                 boxShadow:
                   "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
@@ -110,13 +110,13 @@ const Tasks: FC = () => {
 
               <motion.div
                 variants={animations.fadeIn}
-                className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0 mt-4 sm:mt-6"
+                className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-4 mt-3 sm:mt-6"
               >
                 <FilterButtons />
                 <SortButtons />
               </motion.div>
 
-              <motion.div variants={animations.fadeIn} className="mt-4 sm:mt-6">
+              <motion.div variants={animations.fadeIn} className="mt-3 sm:mt-6">
                 <TaskList />
               </motion.div>
             </motion.div>

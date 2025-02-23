@@ -15,7 +15,7 @@ export const PrioritySelect: React.FC<PrioritySelectProps> = ({ taskId, currentP
   const priorityColors = {
     [Priority.HIGH]: 'text-red-500',
     [Priority.MEDIUM]: 'text-yellow-500',
-    [Priority.LOW]: 'text-gray-500'
+    [Priority.LOW]: 'text-gray-400'
   };
 
   const priorityIcons = {
@@ -30,7 +30,7 @@ export const PrioritySelect: React.FC<PrioritySelectProps> = ({ taskId, currentP
   };
 
   return (
-    <div className="relative inline-block ml-auto">
+    <div className="relative inline-block">
       <select 
         value={currentPriority}
         onChange={handlePriorityChange}
@@ -39,38 +39,45 @@ export const PrioritySelect: React.FC<PrioritySelectProps> = ({ taskId, currentP
           appearance-none
           bg-transparent
           border border-gray-200
-          rounded-md
-          py-1 pl-2 pr-8
+          rounded
+          text-sm
+          py-1
+          pl-1.5
+          pr-5
+          sm:pl-2
+          sm:pr-6
           cursor-pointer
           hover:border-gray-300
           focus:outline-none
-          focus:ring-2
+          focus:ring-1
           focus:ring-blue-500
           focus:border-transparent
           transition-colors
+          w-[70px]
+          sm:w-auto
         `}
       >
         <option 
           value={Priority.HIGH}
-          className="text-red-500 bg-white"
+          className="text-red-500 bg-white text-sm"
         >
-          {priorityIcons[Priority.HIGH]} High
+          {priorityIcons[Priority.HIGH]} H
         </option>
         <option 
           value={Priority.MEDIUM}
-          className="text-yellow-500 bg-white"
+          className="text-yellow-500 bg-white text-sm"
         >
-          {priorityIcons[Priority.MEDIUM]} Medium
+          {priorityIcons[Priority.MEDIUM]} M
         </option>
         <option 
           value={Priority.LOW}
-          className="text-gray-500 bg-white"
+          className="text-gray-400 bg-white text-sm"
         >
-          {priorityIcons[Priority.LOW]} Low
+          {priorityIcons[Priority.LOW]} L
         </option>
       </select>
-      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
-        <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1 sm:px-2">
+        <svg className="h-3 w-3 sm:h-4 sm:w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
         </svg>
       </div>
