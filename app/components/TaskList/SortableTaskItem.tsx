@@ -1,20 +1,20 @@
 "use client"
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Task } from '../../../types';
-import { toggleImportant, deleteTask, toggleCompleted, updateTaskText } from '../../store/thunks/taskThunks'
+import { toggleImportant, deleteTask, toggleCompleted } from '../../store/thunks/taskThunks'
 import { useDispatch } from 'react-redux';
-import { AutoResizeTextArea } from './../AutoResizeTextarea/AutoResizeTextArea';
 import { PrioritySelect } from './../PrioritySelect/PrioritySelect';
 import { AppDispatch } from '../../../pages/login';
-import { useDebounce } from 'hooks/useDebounce';
+import { useRouter } from 'next/router';
 
 interface Props {
   task: Task;
 }
 
 export const SortableTaskItem: React.FC<Props> = ({ task }) => {
+  const router = useRouter();
   const {
     attributes,
     listeners,
@@ -34,18 +34,15 @@ export const SortableTaskItem: React.FC<Props> = ({ task }) => {
     dispatch(toggleCompleted(task._id))
   }
 
-  const [taskText, setTaskText] = useState(task.text);
-  const debouncedTaskText = useDebounce(taskText, 1000);
-
-  const handleTaskTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setTaskText(e.target.value);
-  };
-
-  React.useEffect(() => {
-    if (debouncedTaskText !== task.text) {
-      dispatch(updateTaskText({ id: task._id, text: debouncedTaskText }));
+  const handleTaskClick = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    try {
+      await router.push(`/tasks/${task._id}`);
+    } catch (error) {
+      console.error('Navigation error:', error);
     }
-  }, [debouncedTaskText]);
+  };
 
   const handleDelete = () => {
     elementRef.current?.classList.add('task-exit')
@@ -72,7 +69,6 @@ export const SortableTaskItem: React.FC<Props> = ({ task }) => {
           transition-all duration-200
           ${task.completed ? 'bg-gray-50/80' : ''}
         `}>
-          {/* Left Section - Checkbox */}
           <div className="flex items-center gap-1 flex-shrink-0">
             <input
               type="checkbox"
@@ -83,28 +79,23 @@ export const SortableTaskItem: React.FC<Props> = ({ task }) => {
             />
           </div>
 
-          {/* Middle Section - Task Text */}
-          <div className="flex-1 min-w-0 mx-1">
-            <AutoResizeTextArea
-              value={taskText}
-              onChange={handleTaskTextChange}
-              className={`
-                w-full
-                text-sm
-                leading-normal
-                bg-transparent
-                border-none
-                focus:ring-0
-                resize-none
-                overflow-hidden
-                p-0
-                ${task.completed ? 'text-gray-400 line-through' : 'text-gray-700'}
-              `}
-              maxLength={300}
-            />
-          </div>
+          <button 
+            onClick={handleTaskClick}
+            className="flex-1 min-w-0 mx-1 cursor-pointer text-left"
+          >
+            <p className={`
+              w-full
+              text-sm
+              leading-normal
+              bg-transparent
+              hover:text-blue-600
+              truncate
+              ${task.completed ? 'text-gray-400 line-through' : 'text-gray-700'}
+            `}>
+              {task.text}
+            </p>
+          </button>
 
-          {/* Right Section - Actions */}
           <div className="flex items-center gap-1 flex-shrink-0">
             <button
               {...attributes}
