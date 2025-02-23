@@ -3,7 +3,6 @@ import { taskApi } from '../../services/taskApi'
 import { CreateTaskDto, Priority, Task } from '../../../types/tasksTypes'
 import { isApiError } from 'utils/isApiError'
 import { setPriority } from 'store/slices/taskSlice'
-import { RootState } from '../../../types'
 
 export const fetchTasks = createAsyncThunk(
   'tasks/fetchTasks',
@@ -110,19 +109,15 @@ export const togglePriority = createAsyncThunk(
 
 export const clearCompleted = createAsyncThunk(
   'tasks/clearCompleted',
-  async (_, { rejectWithValue, getState }) => {
+  async (_, { rejectWithValue }) => {
     try {
-      const state = getState() as RootState;
-      const completedTasks = state.tasks.tasks.filter(task => task.completed);
+      const { deletedIds } = await taskApi.clearCompleted();
       
-      if (completedTasks.length === 0) {
-        return rejectWithValue('No completed tasks to clear');
+      if (!deletedIds || deletedIds.length === 0) {
+        return rejectWithValue('Failed to clear completed tasks');
       }
-
-      const completedIds = completedTasks.map(task => task._id);
-      await Promise.all(completedIds.map(id => taskApi.deleteTask(id)));
       
-      return completedIds;
+      return deletedIds;
     } catch (error) {
       if (isApiError(error)) {
         return rejectWithValue(error.response?.data?.message || 'Failed to clear completed tasks');
@@ -131,4 +126,3 @@ export const clearCompleted = createAsyncThunk(
     }
   }
 );
-

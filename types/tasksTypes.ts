@@ -46,4 +46,5 @@ export interface TaskState {
   error: string | null;
   timeSort: SortType;
   prioritySort: SortType;
+  completedTasksBackup?: Task[];
 }

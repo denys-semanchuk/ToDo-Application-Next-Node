@@ -12,9 +12,9 @@ export const taskApi = {
     return response.data;
   },
 
-  async updateTask(id: number, text:string) {
+  async updateTask(id: number, text: string) {
     const response = await api.put(`/tasks/${id}`, {
-      text
+      text,
     });
     return response.data;
   },
@@ -37,6 +37,9 @@ export const taskApi = {
     const response = await api.patch(`/tasks/${id}/priority`, { priority });
     return response.data;
   },
+
+  clearCompleted: async (): Promise<{ deletedIds: string[] }> => {
+    const response = await api.delete(`/tasks/completed-tasks`);
+    return response.data;
+  }
 };
-
-

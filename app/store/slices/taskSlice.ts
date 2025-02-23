@@ -7,6 +7,7 @@ import {
   updateTaskText,
   toggleImportant,
   toggleCompleted,
+  clearCompleted
 } from "store/thunks/taskThunks";
 import { TaskState } from "../../../types/tasksTypes";
 
@@ -83,11 +84,6 @@ const taskSlice = createSlice({
       const task = state.tasks.find((task) => task._id === action.payload._id);
       if (!task) return;
       task.text = action.payload.text;
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.tasks));
-    },
-
-    clearCompleted: (state) => {
-      state.tasks = state.tasks.filter((task) => !task.completed);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state.tasks));
     },
 
@@ -186,6 +182,7 @@ const taskSlice = createSlice({
       if (task) {
         task.important = !task.important;
       }
+
       state.error = action.payload as string;
     });
     builder.addCase(toggleCompleted.pending, (state, action) => {
@@ -202,6 +199,27 @@ const taskSlice = createSlice({
       }
       state.error = action.payload as string;
     });
+
+    builder.addCase(clearCompleted.pending, (state) => {
+      state.completedTasksBackup = state.tasks.filter(task => task.completed);
+      state.tasks = state.tasks.filter(task => !task.completed);
+      state.loading = true;
+      state.error = null;
+    });
+
+    builder.addCase(clearCompleted.fulfilled, (state) => {
+      state.loading = false;
+      state.completedTasksBackup = [];
+    });
+
+    builder.addCase(clearCompleted.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload as string;
+      if (state.completedTasksBackup?.length) {
+        state.tasks = [...state.tasks, ...state.completedTasksBackup];
+      }
+      state.completedTasksBackup = [];
+    });
   },
 });
 export const {
@@ -211,7 +229,6 @@ export const {
   setFilter,
   setSortingByTime,
   reorderTasks,
-  clearCompleted,
   setPriority,
   sortByPriority,
 } = taskSlice.actions;
