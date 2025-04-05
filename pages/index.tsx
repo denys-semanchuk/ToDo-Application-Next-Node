@@ -79,7 +79,7 @@ export default function Dashboard() {
                 </div>
                 <div className="ml-4">
                   <p className="text-sm text-gray-500">Total Tasks</p>
-                  <p className="text-xl font-semibold">{tasks.length}</p>
+                  <p className="text-xl font-semibold text-gray-700">{tasks.length}</p>
                 </div>
               </div>
             </div>
@@ -91,7 +91,7 @@ export default function Dashboard() {
                 </div>
                 <div className="ml-4">
                   <p className="text-sm text-gray-500">Completed</p>
-                  <p className="text-xl font-semibold">{completedTasks}</p>
+                  <p className="text-xl font-semibold text-gray-700">{completedTasks}</p>
                 </div>
               </div>
             </div>
@@ -103,7 +103,7 @@ export default function Dashboard() {
                 </div>
                 <div className="ml-4">
                   <p className="text-sm text-gray-500">Pending</p>
-                  <p className="text-xl font-semibold">{pendingTasks}</p>
+                  <p className="text-xl font-semibold text-gray-700">{pendingTasks}</p>
                 </div>
               </div>
             </div>
@@ -115,7 +115,7 @@ export default function Dashboard() {
                 </div>
                 <div className="ml-4">
                   <p className="text-sm text-gray-500">Productivity</p>
-                  <p className="text-xl font-semibold">{Math.round((completedTasks / tasks.length) * 100) || 0}%</p>
+                  <p className="text-xl font-semibold text-gray-700">{Math.round((completedTasks / tasks.length) * 100) || 0}%</p>
                 </div>
               </div>
             </div>
@@ -123,7 +123,7 @@ export default function Dashboard() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
             <div className="bg-white rounded-xl shadow-sm p-6">
-              <h2 className="text-lg font-semibold mb-4">Task Progress</h2>
+              <h2 className="text-lg font-semibold mb-4 text-gray-700">Task Progress</h2>
               <div className="h-64">
                 <Doughnut
                   data={chartData}
@@ -133,7 +133,7 @@ export default function Dashboard() {
             </div>
 
             <div className="bg-white rounded-xl shadow-sm p-6">
-              <h2 className="text-lg font-semibold mb-4">Recent Activity</h2>
+              <h2 className="text-lg font-semibold mb-4 text-gray-700">Recent Activity</h2>
               <div className="space-y-4">
                 {tasksLoading ? <p>Loading...</p>: tasks.slice(-5).map(task => (
                   <div key={task._id} className="flex items-center p-3 hover:bg-gray-50 rounded-lg">
@@ -148,12 +148,12 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
+          <div className="bg-white rounded-xl shadow-sm p-6 mb-8 text-gray-700">
             <h2 className="text-lg font-semibold mb-4">Quick Actions</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <button className="p-4 text-left hover:bg-gray-50 rounded-lg">
                 <CalendarIcon className="h-6 w-6 text-indigo-600 mb-2" />
-                <h3 className="font-medium">Create Task</h3>
+                <h3 className="font-medium text-gray-700">Create Task</h3>
                 <p className="text-sm text-gray-500">Add a new task to your list</p>
               </button>
             </div>

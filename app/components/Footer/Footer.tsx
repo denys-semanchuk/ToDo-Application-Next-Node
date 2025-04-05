@@ -11,17 +11,17 @@ export const Footer = () => {
             <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
               TaskMaster
             </Link>
-            <p className="mt-4 text-gray-400 max-w-md">
+            <p className="mt-4 text-gray-700 max-w-md">
               Streamline your workflow and boost productivity with our intuitive task management solution.
             </p>
             <div className="mt-6 flex space-x-6">
-              <a href="#" className="text-gray-400 hover:text-indigo-400 transition-colors">
+              <a href="#" className="text-gray-700 hover:text-indigo-400 transition-colors">
                 <FaTwitter className="h-6 w-6" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-indigo-400 transition-colors">
+              <a href="#" className="text-gray-700 hover:text-indigo-400 transition-colors">
                 <FaGithub className="h-6 w-6" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-indigo-400 transition-colors">
+              <a href="#" className="text-gray-700 hover:text-indigo-400 transition-colors">
                 <FaLinkedin className="h-6 w-6" />
               </a>
             </div>
@@ -34,17 +34,17 @@ export const Footer = () => {
             </h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/about" className="text-gray-400 hover:text-indigo-400 transition-colors">
+                <Link href="/about" className="text-gray-700 hover:text-indigo-400 transition-colors">
                   About
                 </Link>
               </li>
               <li>
-                <Link href="/features" className="text-gray-400 hover:text-indigo-400 transition-colors">
+                <Link href="/features" className="text-gray-700 hover:text-indigo-400 transition-colors">
                   Features
                 </Link>
               </li>
               <li>
-                <Link href="/pricing" className="text-gray-400 hover:text-indigo-400 transition-colors">
+                <Link href="/pricing" className="text-gray-700 hover:text-indigo-400 transition-colors">
                   Pricing
                 </Link>
               </li>
@@ -58,17 +58,17 @@ export const Footer = () => {
             </h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/help" className="text-gray-400 hover:text-indigo-400 transition-colors">
+                <Link href="/help" className="text-gray-700 hover:text-indigo-400 transition-colors">
                   Help Center
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="text-gray-400 hover:text-indigo-400 transition-colors">
+                <Link href="/terms" className="text-gray-700 hover:text-indigo-400 transition-colors">
                   Terms of Service
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="text-gray-400 hover:text-indigo-400 transition-colors">
+                <Link href="/privacy" className="text-gray-700 hover:text-indigo-400 transition-colors">
                   Privacy Policy
                 </Link>
               </li>
@@ -77,7 +77,7 @@ export const Footer = () => {
         </div>
 
         <div className="mt-8 pt-8 border-t border-gray-800">
-          <p className="text-center text-gray-400 text-sm">
+          <p className="text-center text-gray-700 text-sm">
             &copy; {new Date().getFullYear()} TaskFlow. All rights reserved.
           </p>
         </div>

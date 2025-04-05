@@ -7,7 +7,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ completed, total }) =>
   return (
     <div className="mb-4">
       <div className="flex justify-between mb-1">
-        <span className="text-sm text-gray-600">
+        <span className="text-sm text-gray-700">
           Progress: {completed}/{total} tasks completed
         </span>
         <span className="text-sm font-semibold text-blue-600">
